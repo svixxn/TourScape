@@ -12,6 +12,7 @@ const AppError = require('./utils/appError');
 const globalErrorHandler = require('./middlewares/errorMiddleware');
 
 const userRoutes = require("../backend/routes/userRoutes")
+const tourRoutes = require("../backend/routes/toursRoutes")
 
 
 const app = express();
@@ -58,6 +59,7 @@ app.use(hpp({
 
 //Routes
 app.use('/api/users', userRoutes)
+app.use('/api/tours', tourRoutes)
 
 
 
