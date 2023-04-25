@@ -40,6 +40,11 @@ const userSchema = new mongoose.Schema({
         enum: ['user', 'guide', 'lead-guide', 'admin'],
         default: 'user'
     },
+    tours: [
+        
+    ]
+
+    
     token: {
         type:String
     },
@@ -54,6 +59,7 @@ const userSchema = new mongoose.Schema({
 }, {
     timestamps:true
 })
+
 
 userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return next();
