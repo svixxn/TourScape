@@ -67,7 +67,7 @@ app.use('/api/tours', tourRoutes)
 app.use('/api/destinations', destinationRoutes)
 app.use('/api/hotels', hotelRoutes)
 app.use('/api/restaurants', restaurantRoutes)
-// app.use('/api/reviews', reviewRoutes)
+app.use('/api/reviews', reviewRoutes)
 
 
 
