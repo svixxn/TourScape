@@ -1,13 +1,13 @@
 process.on('uncaughtException', err => {
     console.log('UNHANDLED Exception! Shutting down...')
-    console.log(err.name, err.message)
+    console.log(err)
     process.exit(1)
 })
 
 
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
-dotenv.config({path:'backend/config'})
+dotenv.config({path:'backend/config.env'})
 
 const DB = process.env.MONGO_URL;
 

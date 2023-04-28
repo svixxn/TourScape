@@ -21,6 +21,10 @@ const reviewSchema = new mongoose.Schema(
             type: mongoose.Schema.ObjectId,
             ref: 'Hotel',
         },
+        restaurant: {
+            type: mongoose.Schema.ObjectId,
+            ref: 'Restaurant',
+        },
         user: {
             type: mongoose.Schema.ObjectId,
             ref: 'User',

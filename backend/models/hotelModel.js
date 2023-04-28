@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const slugify = require('slugify');
 
 const hotelSchema = new mongoose.Schema({
     name: {
@@ -15,25 +16,29 @@ const hotelSchema = new mongoose.Schema({
         required: true,
         minLength: [30, "The hotel description must have at least 30 characters"]
     },
-    room_types: [
+    facilities: [
         {
             type: String,
-            default: 'Standard'
         }
     ],
     location: {
+        type: {
+            type: String,
+            default: 'Point',
+            enum: ['Point'],
+        },
+        coordinates: [Number],
+    },
+    price: {
+        type: Number,
+        required: [true, "The hotel name must have a price"]
+    },
+    destination: {
         type: String,
-        trim: true,
         required: true
     },
-    destinations: [
-        {
-            type: mongoose.Schema.ObjectId,
-            ref: 'Destination'
-        }
-    ],
-    slug:  String
-});
+    slug: String
+}, { timestamps: true });
 
 
 hotelSchema.virtual('reviews', {

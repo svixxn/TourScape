@@ -23,17 +23,20 @@ const upload = multer({
     fileFilter: multerFilter
 });
 
-exports.uploadTourImages = upload.fields([
-    { name: 'imageCover', maxCount: 1 },
-    { name: 'images', maxCount: 3 }
-]);
+// exports.uploadTourImages = upload.fields([
+//     { name: 'imageCover', maxCount: 1 },
+//     { name: 'images', maxCount: 3 }
+// ]);
 
-// upload.single('image') req.file
-// upload.array('images', 5) req.files
+exports.uploadTourCover = upload.single('imageCover');
+
 
 exports.resizeTourImages = catchAsync(async (req, res, next) => {
-    if (!req.files.imageCover || !req.files.images) return next();
-
+    console.log("HERE")
+    if (!req.files.imageCover || !req.files.images){
+        console.log("after")
+        return next();
+    }
     // 1) Cover image
     req.body.imageCover = `tour-${req.params.id}-${Date.now()}-cover.jpeg`;
     await sharp(req.files.imageCover[0].buffer)

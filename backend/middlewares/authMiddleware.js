@@ -26,7 +26,6 @@ exports.protect = catchAsync(async (req, res, next) => {
         return next(new AppError('User recently changed password. Pleaser log in to get access', 401))
     }
 
-    console.log(freshUser)
     req.user = freshUser;
     // req.locals.user = freshUser;
     next();

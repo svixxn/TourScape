@@ -13,6 +13,10 @@ const globalErrorHandler = require('./middlewares/errorMiddleware');
 
 const userRoutes = require("../backend/routes/userRoutes")
 const tourRoutes = require("../backend/routes/toursRoutes")
+const hotelRoutes = require("./routes/hotelRoutes")
+const destinationRoutes = require("../backend/routes/destinationRoutes")
+const restaurantRoutes = require("../backend/routes/restaurantRoutes")
+const reviewRoutes = require("../backend/routes/reviewRoutes")
 
 
 const app = express();
@@ -60,6 +64,10 @@ app.use(hpp({
 //Routes
 app.use('/api/users', userRoutes)
 app.use('/api/tours', tourRoutes)
+app.use('/api/destinations', destinationRoutes)
+app.use('/api/hotels', hotelRoutes)
+app.use('/api/restaurants', restaurantRoutes)
+// app.use('/api/reviews', reviewRoutes)
 
 
 

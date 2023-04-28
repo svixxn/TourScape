@@ -70,7 +70,6 @@ const tourSchema = new mongoose.Schema({
         default: false
     },
     startLocation: {
-        // GeoJSON
         type: {
           type: String,
           default: 'Point',
@@ -105,8 +104,9 @@ const tourSchema = new mongoose.Schema({
     ]
 }, {
     toJSON: {virtuals: true},
-    toObject: {virtuals: true}
-}, { timestamps:true });
+    toObject: {virtuals: true},
+    timestamps:true
+});
 
 tourSchema.index({price: 1, ratingsAverage: -1});
 tourSchema.index({slug: 1});
