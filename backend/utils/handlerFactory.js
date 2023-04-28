@@ -1,6 +1,7 @@
 const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 const APIFeatures = require("../utils/APIFeatures");
+const Review = require("../models/reviewModel");
 
 
 exports.deleteOne = Model => catchAsync(async (req, res,next) => {
@@ -33,6 +34,10 @@ exports.updateOne = Model => catchAsync(async (req, res,next) => {
 
 exports.createOne = Model =>
     catchAsync(async (req, res, next) => {
+        //TODO:  
+        if(Model === Review) {
+            existed = await Model.find({user:req.user.})
+        }
         const doc = await Model.create(req.body);
 
         res.status(201).json({
