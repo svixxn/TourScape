@@ -3,7 +3,7 @@ const factory = require('../utils/handlerFactory')
 
 exports.getAllHotels = factory.getAll(Hotel)
 
-exports.getHotel = factory.getOne(Hotel)
+exports.getHotel = factory.getOne(Hotel, {path:'reviews'})
 
 exports.createHotel = factory.createOne(Hotel)
 

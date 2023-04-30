@@ -38,7 +38,11 @@ const hotelSchema = new mongoose.Schema({
         required: true
     },
     slug: String
-}, { timestamps: true });
+}, { 
+    timestamps: true,
+    toJSON: {virtuals: true},
+    toObject: {virtuals: true} 
+});
 
 
 hotelSchema.virtual('reviews', {

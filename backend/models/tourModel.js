@@ -71,30 +71,30 @@ const tourSchema = new mongoose.Schema({
     },
     startLocation: {
         type: {
-          type: String,
-          default: 'Point',
-          enum: ['Point']
+            type: String,
+            default: 'Point',
+            enum: ['Point']
         },
         coordinates: [Number],
         address: String,
         description: String
-      },
-      locations: [
+    },
+    locations: [
         {
-          type: {
-            type: String,
-            default: 'Point',
-            enum: ['Point']
-          },
-          coordinates: [Number],
-          address: String,
-          description: String,
-          day: Number
+            type: {
+                type: String,
+                default: 'Point',
+                enum: ['Point']
+            },
+            coordinates: [Number],
+            address: String,
+            description: String,
+            day: Number
         }
-      ],
-    destinations: {
-        type: mongoose.Schema.ObjectId,
-        ref: 'Destination'
+    ],
+    destination: {
+        type: String,
+        required: true
     },
     guides: [
         {
@@ -103,14 +103,14 @@ const tourSchema = new mongoose.Schema({
         }
     ]
 }, {
-    toJSON: {virtuals: true},
-    toObject: {virtuals: true},
-    timestamps:true
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+    timestamps: true
 });
 
-tourSchema.index({price: 1, ratingsAverage: -1});
-tourSchema.index({slug: 1});
-tourSchema.index({startLocation: '2dsphere'});
+tourSchema.index({ price: 1, ratingsAverage: -1 });
+tourSchema.index({ slug: 1 });
+tourSchema.index({ startLocation: '2dsphere' });
 
 tourSchema.virtual('durationWeeks').get(function () {
     return this.duration / 7;
@@ -125,7 +125,7 @@ tourSchema.virtual('reviews', {
 
 //Doc Middleware, runs before save and create command
 tourSchema.pre('save', function (next) {
-    this.slug = slugify(this.name, {lower: true});
+    this.slug = slugify(this.name, { lower: true });
     next();
 });
 
@@ -140,7 +140,7 @@ tourSchema.pre(/^find/, function (next) {
 
 // query middleware
 tourSchema.pre(/^find/, function (next) {
-    this.find({secretTour: {$ne: true}})
+    this.find({ secretTour: { $ne: true } })
     this.start = Date.now();
     next();
 })

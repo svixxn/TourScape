@@ -24,30 +24,34 @@ const destinationSchema = new mongoose.Schema({
           enum: ['Point'],
         },
         coordinates: [Number],
-    },
-    tours: [
-        {
-            type: mongoose.Schema.ObjectId,
-            ref: 'Tour'
-        }
-    ],
-    restaurants: [
-        {
-            type: mongoose.Schema.ObjectId,
-            ref: 'Restaurant' 
-        }
-    ],
-    hotels: [
-        {
-            type: mongoose.Schema.ObjectId,
-            ref: 'Hotel'
-        }
-    ]
-}, {timestamps:true});
+    }
+}, { 
+    timestamps: true,
+    toJSON: {virtuals: true},
+    toObject: {virtuals: true} 
+});
 
 destinationSchema.pre('save', function (next) {
     this.slug = slugify(this.name, {lower: true});
     next();
+});
+
+destinationSchema.virtual('tours', {
+    ref: 'Tour',
+    foreignField: 'destination',
+    localField: 'name'
+});
+
+destinationSchema.virtual('hotels', {
+    ref: 'Hotel',
+    foreignField: 'destination',
+    localField: 'name'
+});
+
+destinationSchema.virtual('restaurants', {
+    ref: 'Restaurant',
+    foreignField: 'destination',
+    localField: 'name'
 });
 
 const Destination = mongoose.model('Destination', destinationSchema)

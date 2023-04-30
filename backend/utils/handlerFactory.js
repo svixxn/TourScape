@@ -34,9 +34,17 @@ exports.updateOne = Model => catchAsync(async (req, res,next) => {
 
 exports.createOne = Model =>
     catchAsync(async (req, res, next) => {
-        //TODO:  
-        if(Model === Review) {
-            existed = await Model.find({user:req.user.})
+        if(Model === Review && req.body.modelReview) {
+            let existed = undefined;
+            switch(req.body.modelReview){
+                case "tour": existed = await Model.findOne({user:req.body.user, tour: req.body.tour})
+                case "hotel": existed = await Model.findOne({user:req.body.user, tour: req.body.hotel})
+                case "restaurant": existed = await Model.findOne({user:req.body.user, restaurant: req.body.restaurant})
+                default: existed = null;
+            }
+            req.body.modelReview = undefined
+            if(existed) return next(new AppError('You have already added review.', 400))
+
         }
         const doc = await Model.create(req.body);
 
@@ -71,6 +79,8 @@ exports.getAll = Model =>
         // To allow for nested GET reviews on tour (hack)
         let filter = {};
         if (req.params.tourId) filter = { tour: req.params.tourId };
+        if (req.params.hotelId) filter = { hotel: req.params.hotelId };
+        if (req.params.restaurantId) filter = { restaurant: req.params.restaurantId };
 
         const features = new APIFeatures(Model.find(filter), req.query)
             .filter()

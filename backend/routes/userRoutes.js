@@ -15,6 +15,7 @@ router.patch('/resetPassword/:token', authController.resetPassword)
 
 router.use(authMiddleware.protect)
 
+router.get('/me', userController.getMe, userController.getUser)
 router.patch('/updateMyPassword', authController.updatePassword)
 router.patch(
     '/updateMe',
@@ -27,7 +28,6 @@ router.delete('/deleteMe', authMiddleware.protect, userController.deleteMe)
 router.use(authMiddleware.restrictTo('admin'))
 
 router.get('/', userController.getAllUsers)
-router.get('/me', userController.getMe, userController.getUser)
 router.route('/:id').get(userController.getUser).patch(userController.updateUser).delete(userController.deleteUser)
 
 
