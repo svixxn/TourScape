@@ -1,8 +1,10 @@
-import React from 'react'
+import { TourState } from '../../context/TourProvider';
 
 function Main() {
+  const {user, setUser} = TourState(); 
+
   return (
-    <div>Main</div>
+    <div>{JSON.stringify(user)}</div>
   )
 }
 

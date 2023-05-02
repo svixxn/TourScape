@@ -1,27 +1,23 @@
 import { useState } from "react";
 import axios from "axios";
-import { useToast } from '@chakra-ui/react'
 import {useSignIn} from 'react-auth-kit'
+import { useNavigate  } from "react-router-dom";
 import '../../style.css'
 
 
 function Login() {
-  const toast = useToast();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const signIn = useSignIn();
+  const navigate = useNavigate();
+
 
   const submitHandler = async () => {  
     if (!email || !password) {
-        toast({
-            title: "Please Fill all the Fields",
-            status: "warning",
-            duration: 5000,
-            isClosable: true,
-            position: "bottom",
-        });
+       alert("Some fields are missing")
         return;
     }
+
 
     try {
         const config = {
@@ -34,37 +30,18 @@ function Login() {
             { email, password },
             config
         );
-        //TODO:
-        signIn({
+        if(signIn({
           token:data.token,
           expiresIn: 3600,
           tokenType: "Bearer",
-          authState: data.data,
-        })
-
-
-
-        // console.log(JSON.stringify(data));
-        toast({
-            title: "Login Successful",
-            status: "success",
-            duration: 5000,
-            isClosable: true,
-            position: "bottom",
-        });
+          authState: data.data.user,
+        })) return navigate("/")
+       
     } catch (error) {
-        toast({
-            title: "Error Occured!",
-            description: error.response.data.message,
-            status: "error",
-            duration: 5000,
-            isClosable: true,
-            position: "bottom",
-        });
+        alert(error)
     }
 };
   return (
-    
     <form className="form font-bold">
       <div className="input-group">
         <label htmlFor="email" className="font-bold">Email</label>
