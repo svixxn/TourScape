@@ -1,17 +1,21 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-// import Cookies from 'universal-cookie';
-// import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 
 const TourContext = createContext({});
 
 const TourProvider = (props) => {
-  const [user, setUser] = useState(null);
-  const [destination, setDestination] = useState(null);
-
+  const [user, setUser] = useState();
+  const [destination, setDestination] = useState();
+  const navigate = useNavigate();
+  //TODO: fix the use effect bug
   useEffect(() => {
-
-  }, []);
+    const userInfo = JSON.parse(Cookies.get('_auth_state'))
+    if(userInfo) setUser(userInfo)
+    else navigate('/')
+    console.log(userInfo)
+  }, [navigate]);
   return (
     <TourContext.Provider
       value={{
