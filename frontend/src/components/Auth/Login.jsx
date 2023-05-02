@@ -4,6 +4,7 @@ import { useToast } from '@chakra-ui/react'
 import {useSignIn} from 'react-auth-kit'
 import '../../style.css'
 
+
 function Login() {
   const toast = useToast();
   const [email, setEmail] = useState();
@@ -64,9 +65,9 @@ function Login() {
 };
   return (
     
-    <form className="form">
+    <form className="form font-bold">
       <div className="input-group">
-        <label htmlFor="email">Email</label>
+        <label htmlFor="email" className="font-bold">Email</label>
         <input type="email" name="email" placeholder="nome@email.com.br" onChange={(e) => setEmail(e.target.value)}/>
       </div>
       <div className="input-group">
