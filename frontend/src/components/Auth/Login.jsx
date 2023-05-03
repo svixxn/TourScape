@@ -3,11 +3,13 @@ import axios from "axios";
 import {useSignIn} from 'react-auth-kit'
 import { useNavigate  } from "react-router-dom";
 import '../../style.css'
+import { TourState } from "../../context/TourProvider";
 
 
 function Login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const {setLoadUser} = TourState();
   const signIn = useSignIn();
   const navigate = useNavigate();
 
@@ -35,8 +37,10 @@ function Login() {
           expiresIn: 3600,
           tokenType: "Bearer",
           authState: data.data.user,
-        })) return navigate("/")
-       
+        })) {
+          setLoadUser(true);
+          navigate("/")
+        }
     } catch (error) {
         alert(error)
     }

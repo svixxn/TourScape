@@ -1,11 +1,13 @@
-import TourProvider from './context/TourProvider';
+import { AuthProvider } from 'react-auth-kit'
 import { Routes, Route } from 'react-router-dom';
+import TourProvider from './context/TourProvider';
 import Login from './components/Auth/Login'
 import SignUp from './components/Auth/SignUp'
-import { AuthProvider } from 'react-auth-kit'
-import './App.css'
-import Main from './components/Destination/Main';
+import Destinations from './components/Destination/Destinations';
 import NotFound from './components/NotFound/NotFound';
+import Navbar from './components/HeadFoot/Navbar'
+import Home from './components/Home';
+import './App.css'
 
 function App() {
   return (
@@ -17,13 +19,15 @@ function App() {
         cookieSecure={window.location.protocol === "http:"}
       >
         <TourProvider>
-          {/* <Navbar /> */}
+          <Navbar />
           <Routes>
-            <Route path="/" element={<Main />} />
+            <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
-            <Route path="about" element={<h1>About</h1>} />
-            <Route path="*" element={<NotFound />} />
+            <Route path="/destinations">
+              <Route index element={<Destinations/>}></Route>
+            </Route>
             <Route path="/signup" element={<SignUp />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </TourProvider>
       </AuthProvider>
