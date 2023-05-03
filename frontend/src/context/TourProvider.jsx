@@ -1,29 +1,50 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import axios from "axios"
 
 
 const TourContext = createContext({});
 
-const TourProvider = (props) => {
-  const [user, setUser] = useState();
-  const [destination, setDestination] = useState();
-  const navigate = useNavigate();
-  //TODO: fix the use effect bug
+const TourProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [loadUser, setLoadUser] = useState(false)
+  const [destinations, setDestinations] = useState(null);
+
   useEffect(() => {
-    const userInfo = JSON.parse(Cookies.get('_auth_state'))
-    if(userInfo) setUser(userInfo)
-    else navigate('/')
-    console.log(userInfo)
-  }, [navigate]);
+    let userInfo;
+    if (Cookies.get('_auth_state'))
+      userInfo = JSON.parse(Cookies.get('_auth_state'))
+    if (userInfo) setUser(userInfo)
+    else setUser(null)
+    setLoadUser(false)
+  }, [loadUser]);
+
+  //TODO: data is null
+  useEffect(() => {
+    (async () => {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+      const { data } = await axios.get(
+        "/api/destinations",
+        config
+      );
+      setDestinations(data)
+    })
+  }, [destinations])
+
+
   return (
     <TourContext.Provider
       value={{
         user, setUser,
-        destination, setDestination
+        loadUser, setLoadUser,
+        destinations, setDestinations
       }}
     >
-      {props.children}
+      {children}
     </TourContext.Provider>
   );
 };
