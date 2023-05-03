@@ -18,6 +18,7 @@
     "react-auth-kit": "^2.12.2",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.11.0",
+    "react-toastify": "^9.1.2",
     "zustand": "^4.3.7"
   },
   "devDependencies": {

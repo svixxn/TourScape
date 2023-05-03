@@ -17,22 +17,28 @@ const destinationSchema = new mongoose.Schema({
         required: true,
         minLength: [30, "The destination description must have at least 30 characters"]
     },
+    short_desc: {
+        type: String,
+        trim: true,
+        required: true,
+        minLength: [10, "The destination short description must have at least 30 characters"]
+    },
     location: {
         type: {
-          type: String,
-          default: 'Point',
-          enum: ['Point'],
+            type: String,
+            default: 'Point',
+            enum: ['Point'],
         },
         coordinates: [Number],
     }
-}, { 
+}, {
     timestamps: true,
-    toJSON: {virtuals: true},
-    toObject: {virtuals: true} 
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
 });
 
 destinationSchema.pre('save', function (next) {
-    this.slug = slugify(this.name, {lower: true});
+    this.slug = slugify(this.name, { lower: true });
     next();
 });
 
