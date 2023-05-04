@@ -32,7 +32,7 @@ function Destinations() {
 
   return (
     <>
-      <div className="container mx-auto">
+      <div className="container mx-auto mb-auto">
         <span className="text-gray-700 font-bold">Number of results: {results}</span>
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
           {destinations.map((destination, index) => (
