@@ -7,7 +7,7 @@ import Destinations from './components/Destination/Destinations';
 import NotFound from './components/NotFound/NotFound';
 import Navbar from './components/HeadFoot/Navbar'
 import Footer from './components/HeadFoot/Footer';
-import Home from './components/Home';
+import Home from './components/Home/Home';
 import './App.css'
 
 function App() {
@@ -21,18 +21,20 @@ function App() {
       >
         <TourProvider>
           <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/destinations">
-              <Route index element={<Destinations />}></Route>
-            </Route>
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <div className='main'>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/destinations">
+                <Route index element={<Destinations />}></Route>
+              </Route>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </div>
           <Footer />
         </TourProvider>
-      </AuthProvider>
+      </AuthProvider >
     </>
   );
 }

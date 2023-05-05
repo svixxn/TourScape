@@ -32,9 +32,9 @@ function Destinations() {
 
   return (
     <>
-      <div className="container mx-auto mb-auto">
+      <div className="container mx-auto mb-16 mt-6">
         <span className="text-gray-700 font-bold">Number of results: {results}</span>
-        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5 mt-4">
           {destinations.map((destination, index) => (
             <DestinationCard key={index} destination={destination}/>
           ))}

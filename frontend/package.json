@@ -13,6 +13,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.14",
     "axios": "^1.4.0",
+    "better-react-carousel": "^1.1.1",
     "js-cookie": "^3.0.5",
     "react": "^18.2.0",
     "react-auth-kit": "^2.12.2",

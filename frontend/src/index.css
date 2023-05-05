@@ -2,8 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+body {
    font-size: 18px;
+   display:flex;
+   flex-direction: column;
+   min-height:100vh;
 }
 
 .loader-container {
@@ -14,4 +17,8 @@
        url("https://media.giphy.com/media/8agqybiK5LW8qrG3vJ/giphy.gif") center
        no-repeat;
    z-index: 1;
+}
+
+.main {
+   flex:1
 }

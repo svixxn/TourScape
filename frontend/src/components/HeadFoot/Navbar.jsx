@@ -18,7 +18,7 @@ function Navbar() {
   }
 
   return (
-    <Disclosure as="nav" className="bg-pink-700">
+    <Disclosure as="nav" className="bg-gradient-to-r from-pink-800 to-pink-400">
       {() => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -30,7 +30,7 @@ function Navbar() {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
-                  <div className="font-serif font-bold text-2xl text-white">TourScape</div>
+                  <Link to={"/"} className="font-serif font-bold text-2xl text-white">TourScape</Link>
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
