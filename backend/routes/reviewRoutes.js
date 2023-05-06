@@ -4,7 +4,7 @@ const authMiddleware = require('./../middlewares/authMiddleware');
 
 const router = express.Router({mergeParams:true});
 
-router.use(authMiddleware.protect)
+// router.use(authMiddleware.protect)
 
 router.route('/').get(reviewController.getAllReviews).post(authMiddleware.protect, authMiddleware.restrictTo('user'), reviewController.setModelUserIds, reviewController.createReview)
 

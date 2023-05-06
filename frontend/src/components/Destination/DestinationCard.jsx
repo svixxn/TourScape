@@ -1,6 +1,4 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
-
 const DestinationCard = ({destination}) => {
    destination.createdAt = (new Date(destination.createdAt)).toLocaleString('en-GB', {day:'numeric', month: 'long', year:'numeric'})
 

@@ -2,7 +2,6 @@ import { useState } from "react";
 import axios from "axios";
 import {useSignIn} from 'react-auth-kit'
 import { useNavigate  } from "react-router-dom";
-import '../../style.css'
 import { TourState } from "../../context/TourProvider";
 
 

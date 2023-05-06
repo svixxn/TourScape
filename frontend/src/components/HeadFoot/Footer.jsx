@@ -1,4 +1,3 @@
-import React from 'react'
 import {FaHome, FaPhone, FaGlobeEurope, FaTelegram, FaTwitter, FaInstagram, FaGithub} from "react-icons/fa";
 import {AiOutlineMail} from 'react-icons/ai' 
 
@@ -8,21 +7,21 @@ function Footer() {
    <footer
      className="text-center bg-neutral-800 text-neutral-200 lg:text-left">
      <div
-       className="flex items-center justify-center border-b-2 border-neutral-200 p-6 border-neutral-500 lg:justify-between">
+       className="flex items-center justify-center border-b-2 p-6 border-neutral-500 lg:justify-between">
        <div className="mr-12 hidden lg:block">
          <span>Get connected with us on social networks:</span>
        </div>
        <div className="flex justify-center">
-         <a href="#!" className="mr-6">
+         <a href="https://t.me/yoskrilldroppinhard" className="mr-6">
          <FaTelegram size={25} />
          </a>
-         <a href="#!" className="mr-6">
+         <a href="https://twitter.com/kijbakovec" className="mr-6">
          <FaTwitter size={25} />
          </a>
-         <a href="#!" className="mr-6">
+         <a href="https://instagram.com/svixxn" className="mr-6">
          <FaInstagram size={25} />
          </a>
-         <a href="#!">
+         <a href="https://github.com/svixxn">
          <FaGithub size={25} />
          </a>
        </div>
