@@ -43,6 +43,10 @@ app.use(
                     'https://icon-library.com',
                     'https://media.giphy.com'
                 ],
+                'media-src' : [
+                    "'self'",
+                    'https://res.cloudinary.com'
+                ]
             },
         },
     })
