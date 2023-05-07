@@ -45,10 +45,12 @@ app.use(
                 ],
                 'media-src' : [
                     "'self'",
+                    'data:',
                     'https://res.cloudinary.com'
                 ],
                 'default-src': [
                     "'self'",
+                    'data:',
                     'https://res.cloudinary.com'
                 ]
             },
