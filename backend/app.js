@@ -69,12 +69,18 @@ app.use('/api/hotels', hotelRoutes)
 app.use('/api/restaurants', restaurantRoutes)
 app.use('/api/reviews', reviewRoutes)
 
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
+
+app.all('*', (req, res, next) => {
+  if (req.originalUrl.includes('api'))
+    return next(
+      new AppError(`Can't find ${req.originalUrl} on this server!`, 404)
+    );
+  res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+});
 
 
 // Error handlers
-app.all('*', (req, res, next) => {
-    next(new AppError(`Can't find ${req.originalUrl}`, 404));
-})
 app.use(globalErrorHandler)
 
 module.exports = app;
