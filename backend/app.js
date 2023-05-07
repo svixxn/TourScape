@@ -23,7 +23,26 @@ const app = express();
 
 
 // Set security HTTP headers
-app.use(helmet())
+app.use(
+    helmet({
+      crossOriginEmbedderPolicy: false,
+      crossOriginResourcePolicy: {
+        allowOrigins: [
+          'https://res.cloudinary.com',
+        ],
+      },
+      contentSecurityPolicy: {
+        directives: {
+          ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+          'img-src': [
+            "'self'",
+            'data:',
+            'https://res.cloudinary.com',
+          ],
+        },
+      },
+    })
+  );
 
 // Development logging
 if (process.env.NODE_ENV === 'development') {
