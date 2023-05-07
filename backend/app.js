@@ -25,26 +25,28 @@ const app = express();
 // Set security HTTP headers
 app.use(
     helmet({
-      crossOriginEmbedderPolicy: false,
-      crossOriginResourcePolicy: {
-        allowOrigins: [
-          'https://res.cloudinary.com',
-        ],
-      },
-      contentSecurityPolicy: {
-        directives: {
-          ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-          'img-src': [
-            "'self'",
-            'data:',
-            'https://res.cloudinary.com',
-            'https://icon-library.com',
-            'https://media.giphy.com'
-          ],
+        crossOriginEmbedderPolicy: false,
+        crossOriginResourcePolicy: {
+            allowOrigins: [
+                'https://res.cloudinary.com',
+                'https://icon-library.com',
+                'https://media.giphy.com'
+            ],
         },
-      },
+        contentSecurityPolicy: {
+            directives: {
+                ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+                'img-src': [
+                    "'self'",
+                    'data:',
+                    'https://res.cloudinary.com',
+                    'https://icon-library.com',
+                    'https://media.giphy.com'
+                ],
+            },
+        },
     })
-  );
+);
 
 // Development logging
 if (process.env.NODE_ENV === 'development') {
@@ -60,7 +62,7 @@ const limiter = rateLimit({
 app.use('/api', limiter)
 
 // Body parser, reading data from body into req.body
-app.use(express.json({ limit: '10kb'}));
+app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(cookieParser());
 
@@ -93,11 +95,11 @@ app.use('/api/reviews', reviewRoutes)
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
 app.all('*', (req, res, next) => {
-  if (req.originalUrl.includes('api'))
-    return next(
-      new AppError(`Can't find ${req.originalUrl} on this server!`, 404)
-    );
-  res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+    if (req.originalUrl.includes('api'))
+        return next(
+            new AppError(`Can't find ${req.originalUrl} on this server!`, 404)
+        );
+    res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
 });
 
 
