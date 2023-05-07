@@ -38,6 +38,8 @@ app.use(
             "'self'",
             'data:',
             'https://res.cloudinary.com',
+            'https://icon-library.com',
+            'https://media.giphy.com'
           ],
         },
       },
