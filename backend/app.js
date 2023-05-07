@@ -46,6 +46,10 @@ app.use(
                 'media-src' : [
                     "'self'",
                     'https://res.cloudinary.com'
+                ],
+                'default-src': [
+                    "'self'",
+                    'https://res.cloudinary.com'
                 ]
             },
         },
