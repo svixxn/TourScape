@@ -8,6 +8,7 @@ import NotFound from './components/NotFound/NotFound';
 import Navbar from './components/HeadFoot/Navbar'
 import Footer from './components/HeadFoot/Footer';
 import Home from './components/Home/Home';
+import { Analytics } from '@vercel/analytics/react';
 import './App.css'
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
           <Footer />
         </TourProvider>
       </AuthProvider >
+      <Analytics />
     </>
   );
 }

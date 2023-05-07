@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.14",
+    "@vercel/analytics": "^1.0.1",
     "axios": "^1.4.0",
     "better-react-carousel": "^1.1.1",
     "js-cookie": "^3.0.5",
