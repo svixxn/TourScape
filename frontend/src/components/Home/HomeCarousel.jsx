@@ -3,6 +3,8 @@ import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 import { RxDotFilled, RxDot } from 'react-icons/rx';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Drawer from './Drawer';
+import { TourState } from '../../context/TourProvider';
 
 const HomeCarousel = () => {
    const slides = [
@@ -19,6 +21,7 @@ const HomeCarousel = () => {
 
    const [currentIndex, setCurrentIndex] = useState(0);
    const [search, setSearch] = useState("")
+   const {isDrawerOpen, setIsDrawerOpen} = TourState()
 
    const prevSlide = () => {
       const isFirstSlide = currentIndex === 0;
@@ -41,15 +44,16 @@ const HomeCarousel = () => {
       if (!search) {
          toast.error('Search is empty!', {
             position: "bottom-center",
-            autoClose: 3000,
+            autoClose: 2000,
             hideProgressBar: false,
             closeOnClick: true,
             draggable: true,
             progress: undefined,
             theme: "light",
          });
-
+         return;
       }
+      setIsDrawerOpen(!isDrawerOpen)
    }
 
    return (
@@ -63,6 +67,8 @@ const HomeCarousel = () => {
                <button className='bg-pink-600 p-5 w-44 rounded-full ml-[-11.5rem] h-14 text-center leading-none' onClick={searchHandler}>Search</button>
                <ToastContainer />
             </div>
+            <Drawer isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen} search={search} setSearch={setSearch}>
+            </Drawer>
             <p className='text-2xl text-center mt-4 z-10'><span className='text-6xl font-bold'>Excursions</span> <br />around the world</p>
          </div>
          {/* Left Arrow */}

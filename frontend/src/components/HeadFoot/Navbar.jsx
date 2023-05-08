@@ -1,11 +1,14 @@
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { TourState } from '../../context/TourProvider';
+import { FaSearch } from 'react-icons/fa'
+import Drawer from "../Home/Drawer";
 
 
 function Navbar() {
   const { user } = TourState();
+  const {isDrawerOpen, setIsDrawerOpen} = TourState();
   const navigation = [
     { name: 'Destinations', href: '/destinations', current: false },
     { name: 'Tours', href: '/tours', current: false },
@@ -23,8 +26,16 @@ function Navbar() {
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div className="relative flex h-16 items-center justify-between">
+              <div className='flex items-center text-white mr-4 md:mr-12 lg:mr-32'>
+                <div className='flex flex-row justify-center items-center gap-2'>
+                  <FaSearch className='cursor-pointer' onClick={() => setIsDrawerOpen(!isDrawerOpen)} />
+                  {isDrawerOpen && <span className='animate-pulse'>Searching...</span>}
+                  <Drawer isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen}>
+                  </Drawer>
+                </div>
+              </div>
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                <Disclosure.Button className="bg-white inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                <Disclosure.Button className="bg-white inline-flex items-center justify-center rounded-md p-3 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="sr-only">Open main menu</span>
                 </Disclosure.Button>
               </div>
@@ -51,7 +62,7 @@ function Navbar() {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex flex-col items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                {user? (
+                {user ? (
                   <Menu as="div" className="relative ml-3">
                     <div>
                       <Menu.Button className="flex rounded-full items-center pl-3 w-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -106,7 +117,7 @@ function Navbar() {
                       </Menu.Items>
                     </Transition>
                   </Menu>
-                ): (
+                ) : (
                   <Link to={"/login"} className='inline-block p-4 text-white'>Login</Link>
                 )}
               </div>

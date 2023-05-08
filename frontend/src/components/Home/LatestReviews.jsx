@@ -34,7 +34,7 @@ const LatestReviews = () => {
    return (
       <div className='container mx-auto text-center'>
          <LineWithText content={"Latest Reviews"} />
-         <div className='h-[20rem] items-center justify-between flex flex-col md:flex-row'>
+         <div className='h-72 items-center justify-between flex flex-col md:flex-row md:gap-3'>
          {lastReviews.map((review, index) => (
             <SingleReview key={index} review={review} />
           ))}

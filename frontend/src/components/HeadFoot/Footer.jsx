@@ -2,6 +2,7 @@ import {FaHome, FaPhone, FaGlobeEurope, FaTelegram, FaTwitter, FaInstagram, FaGi
 import {AiOutlineMail} from 'react-icons/ai' 
 
 
+
 function Footer() {
   return (
    <footer

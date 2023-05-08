@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import { createContext, useContext, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import axios from "axios"
+// import axios from "axios"
 
 
 const TourContext = createContext({});
@@ -8,6 +9,7 @@ const TourContext = createContext({});
 const TourProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loadUser, setLoadUser] = useState(false)
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
   useEffect(() => {
     let userInfo;
@@ -22,7 +24,8 @@ const TourProvider = ({ children }) => {
     <TourContext.Provider
       value={{
         user, setUser,
-        loadUser, setLoadUser
+        loadUser, setLoadUser,
+        isDrawerOpen, setIsDrawerOpen
       }}
     >
       {children}
