@@ -5,39 +5,7 @@ const APIFeatures = require('./../utils/APIFeatures');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const factory = require('./../utils/handlerFactory');
-
-
-const multerStorage = multer.memoryStorage();
-
-const multerFilter = (req, file, cb) => {
-    if (file.mimetype.startsWith('image')) {
-        cb(null, true);
-    } else {
-        cb(new AppError('Not an image! Please upload only images.', 400), false);
-    }
-};
-
-const upload = multer({
-    storage: multerStorage,
-    fileFilter: multerFilter
-});
-
-exports.uploadUserPhoto = upload.single('photo');
-
-exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
-    if (!req.file) return next();
-
-    req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`;
-
-    await sharp(req.file.buffer)
-        .resize(500, 500)
-        .toFormat('jpeg')
-        .jpeg({ quality: 90 })
-        .toFile(`public/img/users/${req.file.filename}`);
-
-    next();
-});
-
+const cloudinary = require('./../utils/cloudinary');
 
 
 const filterObj = (obj, ...allowedFields) => {
@@ -63,7 +31,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 
     // 2) Filtered out unwanted fields names that are not allowed to be updated
     const filteredBody = filterObj(req.body, 'name', 'email');
-    if (req.file) filteredBody.photo = req.file.filename;
+    if (req.file) filteredBody.photo = req.file.path;
 
     // 3) Update user document
     const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
@@ -91,9 +59,42 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
 exports.createUser = (req, res) => {
     res.status(500).json({
         status: 'error',
-        message:'This route is not defined. Please use sign up instead.'
+        message: 'This route is not defined. Please use sign up instead.'
     })
 }
+
+const uploadUserPhoto = publicId => (req, res, next) => {
+    const upload = cloudinary.createSingle(
+        'photo',
+        'Users',
+        publicId,
+        500,
+        500
+    );
+
+    upload(req, res, err => {
+        if (err) return next(err);
+
+        if (req.file) req.body.photo = req.file.path;
+        next();
+    });
+};
+
+const deleteUserPhoto = publicId => (req, res, next) => {
+    cloudinary.deleteSingle('Users', publicId);
+    next();
+};
+
+exports.uploadUserPhoto = (req, res, next) => {
+    const url = req.originalUrl.split("users/")[1];
+    url.startsWith("update")? uploadUserPhoto(req.user.id)(req, res, next): uploadUserPhoto(req.params.id)(req, res, next);
+}
+
+exports.deleteUserPhoto = (req, res, next) => {
+    const url = req.originalUrl.split("users/")[1];
+    url.startsWith("update")? deleteUserPhoto(req.user.id)(req, res, next): deleteUserPhoto(req.params.id)(req, res, next);
+}
+
 
 exports.getAllUsers = factory.getAll(User)
 

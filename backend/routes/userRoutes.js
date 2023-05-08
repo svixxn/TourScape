@@ -20,15 +20,14 @@ router.patch('/updateMyPassword', authController.updatePassword)
 router.patch(
     '/updateMe',
     userController.uploadUserPhoto,
-    userController.resizeUserPhoto,
     userController.updateMe
 );
-router.delete('/deleteMe', authMiddleware.protect, userController.deleteMe)
+router.delete('/deleteMe',authMiddleware.restrictTo('user'), userController.deleteUserPhoto, userController.deleteMe)
 
 router.use(authMiddleware.restrictTo('admin'))
 
 router.get('/', userController.getAllUsers)
-router.route('/:id').get(userController.getUser).patch(userController.updateUser).delete(userController.deleteUser)
+router.route('/:id').get(userController.getUser).patch(userController.uploadUserPhoto, userController.updateUser).delete(userController.deleteUserPhoto, userController.deleteUser)
 
 
 module.exports = router
