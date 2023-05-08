@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 import { RxDotFilled, RxDot } from 'react-icons/rx';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const HomeCarousel = () => {
@@ -36,32 +36,32 @@ const HomeCarousel = () => {
       setCurrentIndex(slideIndex);
    };
 
+   //TODO: add search func
    const searchHandler = () => {
-      if (!search)
-         <ToastContainer
-            position="bottom-left"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="colored"
-         />
+      if (!search) {
+         toast.error('Search is empty!', {
+            position: "bottom-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+         });
+
+      }
    }
 
    return (
-      //TODO: add input and text to slides
       <div className='max-w-[1900px] h-[780px] w-full m-auto py-16 px-4 relative group'>
          <div
             style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
             className='w-full h-full rounded-2xl bg-center bg-cover duration-500 flex flex-col items-center justify-center text-white font-bold dark-overlay relative'
          >
             <div className='flex flex-row w-full justify-center items-center z-10'>
-               <input type="text" className='rounded-full p-5 border-none w-[29rem] text-black' placeholder='Where are you traveling to?' />
-               <button className='bg-pink-600 p-5 w-44 rounded-full ml-[-11.5rem] h-14 text-center leading-none' onClick={searchHandler} onChange={(e) => setSearch(e.target.value)}>Search</button>
+               <input type="text" className='rounded-full p-5 border-none w-[29rem] text-black' placeholder='Where are you traveling to?' onChange={(e) => setSearch(e.target.value)} />
+               <button className='bg-pink-600 p-5 w-44 rounded-full ml-[-11.5rem] h-14 text-center leading-none' onClick={searchHandler}>Search</button>
+               <ToastContainer />
             </div>
             <p className='text-2xl text-center mt-4 z-10'><span className='text-6xl font-bold'>Excursions</span> <br />around the world</p>
          </div>
