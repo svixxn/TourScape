@@ -4,7 +4,7 @@ const DestinationCard = ({destination}) => {
 
    return (
       <div className="max-w-sm rounded overflow-hidden shadow-lg">
-         <img className="w-full" src={`https://source.unsplash.com/random/900x700/?${destination.name}`} alt="Sunset in the mountains"></img>
+         <img className="w-full" src={destination.photo} alt="Sunset in the mountains"></img>
          <div className="px-6 py-4">
             <div className="font-bold text-xl mb-2">{destination.name}</div>
             <p className="text-gray-700 text-base">

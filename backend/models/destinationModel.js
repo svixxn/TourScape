@@ -23,6 +23,10 @@ const destinationSchema = new mongoose.Schema({
         required: true,
         minLength: [10, "The destination short description must have at least 30 characters"]
     },
+    photo:{
+        type:String,
+        default:"https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+    },
     location: {
         type: {
             type: String,

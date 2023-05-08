@@ -11,7 +11,7 @@ router.use(protect)
 router.use(restrictTo('admin', 'lead-guide'))
 
 router.post('/', destinationController.createDestination)
-router.patch('/:id', destinationController.updateDestination)
+router.patch('/:id', destinationController.uploadDestPhoto, destinationController.updateDestination)
 router.delete('/:id', destinationController.deleteDestination)
 
 module.exports = router
