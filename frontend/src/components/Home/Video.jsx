@@ -2,7 +2,7 @@ const Video = () => {
    return (
       <div className="relative h-[30rem]">
          <video autoPlay loop muted className="absolute inset-0 z-0 w-full h-full object-cover" id="bg-video">
-            <source src="https://res.cloudinary.com/dhj6dold2/video/upload/v1683392379/sea-6399_rflndm.mp4" type="video/mp4" />
+            <source src="https://res.cloudinary.com/tourscape/video/upload/v1683554251/TourScape/Static/sea-6399_rflndm_w01cpa.mp4" type="video/mp4" />
          </video>
          <div className="relative z-10 flex flex-col items-center justify-center h-full text-center">
             <h1 className="text-4xl font-bold text-white uppercase">Experience the Beauty of the World</h1>

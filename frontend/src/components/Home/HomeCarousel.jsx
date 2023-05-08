@@ -7,13 +7,13 @@ import 'react-toastify/dist/ReactToastify.css';
 const HomeCarousel = () => {
    const slides = [
       {
-         url: 'https://res.cloudinary.com/dhj6dold2/image/upload/v1683391895/1_mq2wge.jpg',
+         url: 'https://res.cloudinary.com/tourscape/image/upload/v1683554251/TourScape/Static/1_mq2wge_tagrzm.jpg',
       },
       {
-         url: 'https://res.cloudinary.com/dhj6dold2/image/upload/v1683391894/2_ai384x.jpg'
+         url: 'https://res.cloudinary.com/tourscape/image/upload/v1683554250/TourScape/Static/2_ai384x_l07sma.jpg'
       },
       {
-         url: 'https://res.cloudinary.com/dhj6dold2/image/upload/v1683391894/3_agwr6l.jpg'
+         url: 'https://res.cloudinary.com/tourscape/image/upload/v1683554251/TourScape/Static/3_agwr6l_mlgmba.jpg'
       }
    ];
 
