@@ -1,14 +1,18 @@
+import React, { Suspense } from "react"
 import HomeCarousel from './HomeCarousel'
 import WorkWithUs from './WorkWithUs'
-import Video from './Video'
+const Video = React.lazy(() => import("./Video"))
 import LatestReviews from './LatestReviews'
+
 
 
 function Home() {
   return <>
     <HomeCarousel />
     <WorkWithUs />
-    <Video />
+    <Suspense fallback={<div>Loading</div>}>
+      <Video />
+    </Suspense>
     <LatestReviews />
   </>
 }
