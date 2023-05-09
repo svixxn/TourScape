@@ -4,6 +4,7 @@ import TourProvider from './context/TourProvider';
 import Login from './components/Auth/Login'
 import SignUp from './components/Auth/SignUp'
 import Destinations from './components/Destination/Destinations';
+import SingleDestination from './components/Destination/SingleDestination';
 import NotFound from './components/NotFound/NotFound';
 import Navbar from './components/HeadFoot/Navbar'
 import Footer from './components/HeadFoot/Footer';
@@ -22,17 +23,16 @@ function App() {
       >
         <TourProvider>
           <Navbar />
-          <div className='main'>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="/destinations">
-                <Route index element={<Destinations />}></Route>
-              </Route>
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </div>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/destinations">
+              <Route index element={<Destinations />}></Route>
+              <Route path=":slug" element={<SingleDestination />}></Route>
+            </Route>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
           <Footer />
         </TourProvider>
       </AuthProvider >

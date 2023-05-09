@@ -1,3 +1,5 @@
+const { Query } = require("mongoose");
+
 class APIFeatures {
     constructor(query, queryString) {
         this.query = query;
@@ -5,14 +7,22 @@ class APIFeatures {
     }
 
     filter() {
-        const queryObj = {...this.queryString}
-        const excludedFields = ['page', 'sort', 'limit', 'fields']
+        const queryObj = { ...this.queryString }
+        const excludedFields = ['page', 'sort', 'limit', 'fields', 'search']
         excludedFields.forEach(el => delete queryObj[el])
         //Advanced filtering
         let queryStr = JSON.stringify(queryObj);
         queryStr = queryStr.replace(/\b(gte|gt|let|lt)\b/g, match => `$${match}`)
         this.query = this.query.find(JSON.parse(queryStr));
+        return this;
+    }
 
+    search() {
+        if (this.queryString.search) {
+            const search = this.queryString.search;
+            const keyword = {name: {$regex : search, $options:"i"}}
+            this.query = this.query.find(keyword);
+        }
         return this;
     }
 
@@ -45,9 +55,10 @@ class APIFeatures {
         const limit = this.queryString.limit * 1 || 100;
         const skip = (page - 1) * limit;
         this.query = this.query.skip(skip).limit(limit);
-
         return this;
     }
+
+    
 }
 
 module.exports = APIFeatures

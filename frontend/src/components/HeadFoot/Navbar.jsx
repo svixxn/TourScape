@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { TourState } from '../../context/TourProvider';
 import { FaSearch } from 'react-icons/fa'
-import Drawer from "../Home/Drawer";
+import Drawer from "./Drawer";
 
 
 function Navbar() {
@@ -30,8 +30,7 @@ function Navbar() {
                 <div className='flex flex-row justify-center items-center gap-2'>
                   <FaSearch className='cursor-pointer' onClick={() => setIsDrawerOpen(!isDrawerOpen)} />
                   {isDrawerOpen && <span className='animate-pulse'>Searching...</span>}
-                  <Drawer isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen}>
-                  </Drawer>
+                  <Drawer /> 
                 </div>
               </div>
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">

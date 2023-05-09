@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 import { RxDotFilled, RxDot } from 'react-icons/rx';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Drawer from './Drawer';
+import Drawer from '../HeadFoot/Drawer';
 import { TourState } from '../../context/TourProvider';
 
 const HomeCarousel = () => {
@@ -20,7 +20,6 @@ const HomeCarousel = () => {
    ];
 
    const [currentIndex, setCurrentIndex] = useState(0);
-   const [search, setSearch] = useState("")
    const {isDrawerOpen, setIsDrawerOpen} = TourState()
 
    const prevSlide = () => {
@@ -39,23 +38,6 @@ const HomeCarousel = () => {
       setCurrentIndex(slideIndex);
    };
 
-   //TODO: add search func
-   const searchHandler = () => {
-      if (!search) {
-         toast.error('Search is empty!', {
-            position: "bottom-center",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-         });
-         return;
-      }
-      setIsDrawerOpen(!isDrawerOpen)
-   }
-
    return (
       <div className='max-w-[1900px] h-[780px] w-full m-auto py-16 px-4 relative group'>
          <div
@@ -63,12 +45,10 @@ const HomeCarousel = () => {
             className='w-full h-full rounded-2xl bg-center bg-cover duration-500 flex flex-col items-center justify-center text-white font-bold dark-overlay relative'
          >
             <div className='flex flex-row w-full justify-center items-center z-10'>
-               <input type="text" className='rounded-full p-5 border-none w-[29rem] text-black' placeholder='Where are you traveling to?' onChange={(e) => setSearch(e.target.value)} />
-               <button className='bg-pink-600 p-5 w-44 rounded-full ml-[-11.5rem] h-14 text-center leading-none' onClick={searchHandler}>Search</button>
+               <button className='bg-pink-600 p-3 w-72 rounded-full h-14 text-center leading-none border-white border-2 hover:bg-pink-700 transition duration-200' onClick={()=> setIsDrawerOpen(!isDrawerOpen)}>Start Searching Now</button>
                <ToastContainer />
             </div>
-            <Drawer isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen} search={search} setSearch={setSearch}>
-            </Drawer>
+            <Drawer />
             <p className='text-2xl text-center mt-4 z-10'><span className='text-6xl font-bold'>Excursions</span> <br />around the world</p>
          </div>
          {/* Left Arrow */}
