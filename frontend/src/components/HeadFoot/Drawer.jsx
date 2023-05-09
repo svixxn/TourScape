@@ -21,7 +21,6 @@ const Drawer = () => {
             const { data } = await axios.get(`/api/destinations?search=${search}`)
             setIsLoading(false)
             setResult(data.data.data)
-            console.log(data)
 
          } catch (err) {
             toast.error('An error occured!', {
