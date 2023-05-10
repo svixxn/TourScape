@@ -8,7 +8,7 @@ const DestinationCard = ({ destination }) => {
    return (
       <Link to={`/destinations/${destination.slug}`}>
          <div className="rounded overflow-hidden shadow-lg hover:bg-green-100 transition duration-100">
-            <img className="w-full" src={destination.photo} alt="Sunset in the mountains"></img>
+            <img className="w-full" src={destination.photo[0]} alt="Sunset in the mountains"></img>
             <div className="px-6 py-4">
                <div className="font-bold text-xl mb-2">{destination.name}</div>
                <p className="text-gray-700 text-base">

@@ -4,20 +4,14 @@ const cloudinary = require('./../utils/cloudinary');
 const catchAsync = require("../utils/catchAsync");
 
 const uploadDestPhoto = publicId => (req, res, next) => {
-   const upload = cloudinary.createSingle(
-      'photo',
-      'Destinations',
-      publicId,
-      900,
-      700
-   );
-
-   upload(req, res, err => {
+   cloudinary.createMulti('photo', 'Destinations', publicId, 900, 700)(req, res, (err) => {
       if (err) return next(err);
-
-      if (req.file) req.body.photo = req.file.path;
+      if (req.files && req.files.length>0) {
+         console.log(req.files)
+         req.body.photo = req.files.map(el=>el.path);
+      }
       next();
-   });
+   })
 };
 
 const deleteDestPhoto = publicId => (req, res, next) => {

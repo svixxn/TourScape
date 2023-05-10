@@ -17,12 +17,13 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-exports.createSingle = (key, folder, public_id, width, height) => {
+exports.createMulti = (keys, folder, public_id, width, height) => {
+  let counter = 1;
   const storage = new CloudinaryStorage({
     cloudinary,
     params: {
-      folder: `TourScape/${folder}`,
-      public_id: () => public_id,
+      folder: `TourScape/${folder}/${public_id}`,
+      public_id: (req, file) => `${public_id}_${counter++}`,
       overwrite: true,
       resource_type: 'image',
       crop: "scale",
@@ -30,8 +31,9 @@ exports.createSingle = (key, folder, public_id, width, height) => {
       height: height,
     },
   });
-  return multer({ storage: storage, fileFilter: fileFilter }).single(
-    key
+  
+  return multer({ storage: storage, fileFilter: fileFilter }).array(
+    keys
   );
 };
 
