@@ -5,7 +5,7 @@ const {protect, restrictTo} = require("../middlewares/authMiddleware")
 const router = express.Router()
 
 router.get('/', destinationController.getAllDestinations)
-router.get('/:id', destinationController.getDestination)
+router.get('/:slug', destinationController.getDestination)
 
 router.use(protect)
 router.use(restrictTo('admin', 'lead-guide'))
