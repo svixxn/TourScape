@@ -46,7 +46,7 @@ app.use(
                     'https://res.cloudinary.com',
                     'https://icon-library.com',
                     'https://media.giphy.com',
-                    
+                    'blob: ',    
                 ],
                 'media-src' : [
                     "'self'",
@@ -65,16 +65,18 @@ app.use(
                     'https://www.mapbox.com/',
                     'https://api.mapbox.com/'
                 ],
-                'worker-src': [
-                    "'self'",
-                    'data:',
-                    'blob: https://tourscape-2c2ogvsq2-svixxn.vercel.app/'
+                'worker-src': [,
+                    'blob: '
+                ],
+                'child-src': [
+                    'blob: '
                 ],
                 'connect-src': [
                     "'self'",
                     'data:',
                     'https://api.mapbox.com',
                     'https://res.cloudinary.com',
+                    'https://*.tiles.mapbox.com',
                     'https://events.mapbox.com'
                 ]
             },
