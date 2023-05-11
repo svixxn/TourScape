@@ -30,9 +30,7 @@ app.use(
             allowOrigins: [
                 'https://res.cloudinary.com',
                 'https://icon-library.com',
-                'https://media.giphy.com',
-                'https://api.mapbox.com',
-                'https://events.mapbox.com'
+                'https://media.giphy.com'
             ],
         },
         contentSecurityPolicy: {
@@ -55,9 +53,6 @@ app.use(
                     "'self'",
                     'data:',
                     'https://res.cloudinary.com',
-                    'https://www.mapbox.com',
-                    'https://api.mapbox.com',
-                    'https://events.mapbox.com'
                 ],
                 'script-src': [
                     "'self'",
@@ -65,7 +60,13 @@ app.use(
                     'https://www.mapbox.com',
                     'https://api.mapbox.com'
                 ],
+                'style-src': [
+                    "'self'",
+                    "'unsafe-inline'",
+                    'https://api.mapbox.com/'
+                ],
                 'worker-src': [
+                    "'self'",
                     'blob:'
                 ],
                 'child-src': [
@@ -73,11 +74,10 @@ app.use(
                 ],
                 'connect-src': [
                     "'self'",
-                    'data:',
-                    'https://events.mapbox.com',
-                    'https://api.mapbox.com',
-                    'https://res.cloudinary.com',
-                    'https://*.tiles.mapbox.com'
+                    'https://events.mapbox.com/',
+                    'https://api.mapbox.com/',
+                    'https://res.cloudinary.com/',
+                    'https://*.tiles.mapbox.com/'
                 ]
             },
         },
