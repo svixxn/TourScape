@@ -31,7 +31,8 @@ app.use(
                 'https://res.cloudinary.com',
                 'https://icon-library.com',
                 'https://media.giphy.com',
-                'https://www.mapbox.com/'
+                'https://www.mapbox.com/',
+                'https://tourscape-2c2ogvsq2-svixxn.vercel.app/'
             ],
         },
         contentSecurityPolicy: {
@@ -58,6 +59,11 @@ app.use(
                     "'self'",
                     'data:',
                     'https://www.mapbox.com/'
+                ],
+                'worker-src': [
+                    "'self'",
+                    'data:',
+                    'https://tourscape-2c2ogvsq2-svixxn.vercel.app/'
                 ]
             },
         },
