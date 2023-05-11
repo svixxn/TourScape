@@ -56,12 +56,14 @@ app.use(
                 'default-src': [
                     "'self'",
                     'data:',
-                    'https://res.cloudinary.com'
+                    'https://res.cloudinary.com',
+                    'https://*.mapbox.com'
                 ],
                 'script-src': [
                     "'self'",
                     'data:',
-                    'https://www.mapbox.com/'
+                    'https://www.mapbox.com/',
+                    'https://api.mapbox.com/'
                 ],
                 'worker-src': [
                     "'self'",
