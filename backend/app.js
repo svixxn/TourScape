@@ -30,7 +30,8 @@ app.use(
             allowOrigins: [
                 'https://res.cloudinary.com',
                 'https://icon-library.com',
-                'https://media.giphy.com'
+                'https://media.giphy.com',
+                'https://www.mapbox.com/'
             ],
         },
         contentSecurityPolicy: {
@@ -52,6 +53,11 @@ app.use(
                     "'self'",
                     'data:',
                     'https://res.cloudinary.com'
+                ],
+                'script-src': [
+                    "'self'",
+                    'data:',
+                    'https://www.mapbox.com/'
                 ]
             },
         },
