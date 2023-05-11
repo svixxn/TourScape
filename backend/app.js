@@ -32,7 +32,7 @@ app.use(
                 'https://icon-library.com',
                 'https://media.giphy.com',
                 'https://www.mapbox.com/',
-                // 'blob:https://tourscape-2c2ogvsq2-svixxn.vercel.app/'
+                'blob:https://tourscape-2c2ogvsq2-svixxn.vercel.app/'
             ],
         },
         contentSecurityPolicy: {
@@ -60,11 +60,11 @@ app.use(
                     'data:',
                     'https://www.mapbox.com/'
                 ],
-                // 'worker-src': [
-                //     "'self'",
-                //     'data:',
-                //     'blob: https://tourscape-2c2ogvsq2-svixxn.vercel.app/'
-                // ]
+                'worker-src': [
+                    "'self'",
+                    'data:',
+                    'blob: https://tourscape-2c2ogvsq2-svixxn.vercel.app/'
+                ]
             },
         },
     })
