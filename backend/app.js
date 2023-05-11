@@ -32,7 +32,7 @@ app.use(
                 'https://icon-library.com',
                 'https://media.giphy.com',
                 'https://www.mapbox.com/',
-                'https://tourscape-2c2ogvsq2-svixxn.vercel.app/'
+                'blob:https://tourscape-2c2ogvsq2-svixxn.vercel.app/'
             ],
         },
         contentSecurityPolicy: {
@@ -63,7 +63,7 @@ app.use(
                 'worker-src': [
                     "'self'",
                     'data:',
-                    'https://tourscape-2c2ogvsq2-svixxn.vercel.app/'
+                    'blob: https://tourscape-2c2ogvsq2-svixxn.vercel.app/'
                 ]
             },
         },
