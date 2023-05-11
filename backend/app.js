@@ -32,7 +32,8 @@ app.use(
                 'https://icon-library.com',
                 'https://media.giphy.com',
                 'https://www.mapbox.com/',
-                'blob:https://tourscape-2c2ogvsq2-svixxn.vercel.app/'
+                'blob:https://tourscape-2c2ogvsq2-svixxn.vercel.app/',
+                'https://api.mapbox.com'
             ],
         },
         contentSecurityPolicy: {
@@ -43,7 +44,8 @@ app.use(
                     'data:',
                     'https://res.cloudinary.com',
                     'https://icon-library.com',
-                    'https://media.giphy.com'
+                    'https://media.giphy.com',
+                    
                 ],
                 'media-src' : [
                     "'self'",
@@ -64,6 +66,11 @@ app.use(
                     "'self'",
                     'data:',
                     'blob: https://tourscape-2c2ogvsq2-svixxn.vercel.app/'
+                ],
+                'connect-src': [
+                    "'self'",
+                    'data:',
+                    'https://api.mapbox.com'
                 ]
             },
         },
