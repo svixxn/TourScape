@@ -33,7 +33,8 @@ app.use(
                 'https://media.giphy.com',
                 'https://www.mapbox.com/',
                 'blob:https://tourscape-2c2ogvsq2-svixxn.vercel.app/',
-                'https://api.mapbox.com'
+                'https://api.mapbox.com',
+                'https://events.mapbox.com'
             ],
         },
         contentSecurityPolicy: {
@@ -71,7 +72,8 @@ app.use(
                     "'self'",
                     'data:',
                     'https://api.mapbox.com',
-                    'https://res.cloudinary.com'
+                    'https://res.cloudinary.com',
+                    'https://events.mapbox.com'
                 ]
             },
         },
