@@ -11,13 +11,19 @@ const MapBox = (props) => {
 
   useEffect(() => {
     if (map.current) return;
-    map.current = new mapboxgl.Map({
-      scrollZoom: { ctrlKey: true },
-      container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/streets-v12',
-      center: [props.coords.coordinates[1], props.coords.coordinates[0]],
-      zoom: 8
-    });
+    try {
+      map.current = new mapboxgl.Map({
+        scrollZoom: { ctrlKey: true },
+        container: mapContainer.current,
+        style: 'mapbox://styles/mapbox/streets-v12',
+        center: [props.coords.coordinates[1], props.coords.coordinates[0]],
+        zoom: 8
+      });
+    } catch(err){
+      console.log(err)
+    }
+
+    
     marker.current = new mapboxgl.Marker({ color: "#d12eb9" })
       .setLngLat([props.coords.coordinates[1], props.coords.coordinates[0]])
       .addTo(map.current);
