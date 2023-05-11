@@ -74,10 +74,10 @@ app.use(
                 'connect-src': [
                     "'self'",
                     'data:',
+                    'https://events.mapbox.com',
                     'https://api.mapbox.com',
                     'https://res.cloudinary.com',
-                    'https://*.tiles.mapbox.com',
-                    'https://events.mapbox.com'
+                    'https://*.tiles.mapbox.com'
                 ]
             },
         },
