@@ -31,8 +31,7 @@ app.use(
                 'https://res.cloudinary.com',
                 'https://icon-library.com',
                 'https://media.giphy.com',
-                'https://www.mapbox.com/',
-                'blob:https://tourscape-2c2ogvsq2-svixxn.vercel.app/',
+                'https://www.mapbox.com',
                 'https://api.mapbox.com',
                 'https://events.mapbox.com'
             ],
@@ -46,9 +45,9 @@ app.use(
                     'https://res.cloudinary.com',
                     'https://icon-library.com',
                     'https://media.giphy.com',
-                    'blob: ',    
+                    'blob:',
                 ],
-                'media-src' : [
+                'media-src': [
                     "'self'",
                     'data:',
                     'https://res.cloudinary.com'
@@ -57,19 +56,21 @@ app.use(
                     "'self'",
                     'data:',
                     'https://res.cloudinary.com',
-                    'https://*.mapbox.com'
+                    'https://www.mapbox.com',
+                    'https://api.mapbox.com',
+                    'https://events.mapbox.com'
                 ],
                 'script-src': [
                     "'self'",
                     'data:',
-                    'https://www.mapbox.com/',
-                    'https://api.mapbox.com/'
+                    'https://www.mapbox.com',
+                    'https://api.mapbox.com'
                 ],
-                'worker-src': [,
-                    'blob: '
+                'worker-src': [
+                    'blob:'
                 ],
                 'child-src': [
-                    'blob: '
+                    'blob:'
                 ],
                 'connect-src': [
                     "'self'",
