@@ -31,7 +31,6 @@ app.use(
                 'https://res.cloudinary.com',
                 'https://icon-library.com',
                 'https://media.giphy.com',
-                'https://www.mapbox.com',
                 'https://api.mapbox.com',
                 'https://events.mapbox.com'
             ],
