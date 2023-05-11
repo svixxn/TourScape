@@ -70,7 +70,8 @@ app.use(
                 'connect-src': [
                     "'self'",
                     'data:',
-                    'https://api.mapbox.com'
+                    'https://api.mapbox.com',
+                    'https://res.cloudinary.com'
                 ]
             },
         },
