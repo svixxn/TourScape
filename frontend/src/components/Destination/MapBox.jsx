@@ -15,7 +15,7 @@ const MapBox = (props) => {
       map.current = new mapboxgl.Map({
         scrollZoom: { ctrlKey: true },
         container: mapContainer.current,
-        style: 'mapbox://styles/mapbox/streets-v12',
+        style: 'mapbox://styles/mapbox/satellite-v9',
         center: [props.coords.coordinates[1], props.coords.coordinates[0]],
         zoom: 8
       });

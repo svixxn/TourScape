@@ -1,5 +1,6 @@
-import {FaHome, FaPhone, FaGlobeEurope, FaTelegram, FaTwitter, FaInstagram, FaGithub} from "react-icons/fa";
-import {AiOutlineMail} from 'react-icons/ai' 
+
+
+
 
 
 
@@ -14,16 +15,16 @@ function Footer() {
        </div>
        <div className="flex justify-center">
          <a href="https://t.me/yoskrilldroppinhard" className="mr-6">
-         <FaTelegram size={25} />
+         {/* <FaTelegram size={25} /> */}
          </a>
          <a href="https://twitter.com/kijbakovec" className="mr-6">
-         <FaTwitter size={25} />
+         {/* <FaTwitter size={25} /> */}
          </a>
          <a href="https://instagram.com/svixxn" className="mr-6">
-         <FaInstagram size={25} />
+         {/* <FaInstagram size={25} /> */}
          </a>
          <a href="https://github.com/svixxn">
-         <FaGithub size={25} />
+         {/* <FaGithub size={25} /> */}
          </a>
        </div>
      </div>
@@ -32,7 +33,7 @@ function Footer() {
          <div className="">
            <h6
              className="mb-4 flex items-center justify-center font-semibold uppercase md:justify-start">
-             <FaGlobeEurope className='mr-3 h-5 w-5' />
+             {/* <FaGlobeEurope className='mr-3 h-5 w-5' /> */}
              TourScape
            </h6>
            <p>
@@ -87,15 +88,15 @@ function Footer() {
              Contact
            </h6>
            <p className="mb-4 flex items-center justify-center md:justify-start">
-           <FaHome className='mr-3 h-5 w-5' />
+           {/* <FaHome className='mr-3 h-5 w-5' /> */}
              Zhytomyr, Kyivskya str.
            </p>
            <p className="mb-4 flex items-center justify-center md:justify-start">
-           <AiOutlineMail className='mr-3 h-5 w-5'/>
+           {/* <AiOutlineMail className='mr-3 h-5 w-5'/> */}
              kn211_bmo@student.ztu.edu.ua
            </p>
            <p className="mb-4 flex items-center justify-center md:justify-start">
-             <FaPhone className='mr-3 h-5 w-5'/>
+             {/* <FaPhone className='mr-3 h-5 w-5'/> */}
              +(380) 96-554-49-24
            </p>
          </div>
