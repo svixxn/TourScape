@@ -66,16 +66,16 @@ const SingleDestination = () => {
         <button className='bg-none hover:bg-slate-200 transition duration-500 w-full my-4 text-center' onClick={() => setIsAccOpen(prevState => !prevState)}>
           <LineWithTextArrow content={"Description"} isOpen={isAccOpen} />
         </button>
-        {isAccOpen && (
-          <div className={'border-4 p-8'}>
-            <p>{destination.description}</p>
-          </div>)}
+        <div className={`overflow-y-auto border-4 px-8 transition-all ${isAccOpen ? 'max-h-80 py-8': 'max-h-0'}`}>
+          <p>{destination.description}</p>
+        </div>
+
       </div>
-      
+
       <div className="container mx-auto mt-10">
-        <ToursSection tours={destination.tours}/>
-        <HotelsSection/>
-        <RestaurantsSection/>
+        <ToursSection tours={destination.tours} />
+        <HotelsSection hotels={destination.hotels} />
+        <RestaurantsSection restaurants={destination.restaurants} />
       </div>
     </div >
   )

@@ -58,11 +58,7 @@ const tourSchema = new mongoose.Schema({
         trim: true,
         required: [true, "A tour must have a description"]
     },
-    imageCover: {
-        type: String,
-        required: [true, "A tour must have a cover image"]
-    },
-    images: [String],
+    photo: [String],
     startDates: [Date],
     endDates: [Date],
     secretTour: {
@@ -89,7 +85,7 @@ const tourSchema = new mongoose.Schema({
             coordinates: [Number],
             address: String,
             description: String,
-            day: Number
+            hours: Number
         }
     ],
     destination: {

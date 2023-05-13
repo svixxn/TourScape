@@ -7,7 +7,7 @@ const LineWithTextArrow = ({ content, isOpen = true }) => {
       <div className="flex py-2 items-center">
          <div className="flex-grow border-t border-gray-400"></div>
          <div className="flex-shrink flex flex-row items-center gap-2 mx-4 text-gray-400">
-            {content} {isOpen ? (<BsArrowDownCircle />) : (<BsArrowUpCircle />)}
+            {content} {isOpen ?  (<BsArrowUpCircle />): (<BsArrowDownCircle />)}
          </div>
          <div className="flex-grow border-t border-gray-400"></div>
       </div >

@@ -11,6 +11,8 @@ import Footer from './components/HeadFoot/Footer';
 import Home from './components/Home/Home';
 import { Analytics } from '@vercel/analytics/react';
 import './App.css'
+import Tours from './components/Tour/Tours';
+import SingleTour from './components/Tour/SingleTour';
 
 function App() {
   return (
@@ -30,6 +32,10 @@ function App() {
             <Route path="/destinations">
               <Route index element={<Destinations />}></Route>
               <Route path=":slug" element={<SingleDestination />}></Route>
+            </Route>
+            <Route path="/tours">
+              <Route index element={<Tours />}></Route>
+              <Route path=":slug" element={<SingleTour />}></Route>
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
