@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 
 const SingleTourCard = ({ tour }) => {
   const filledStars = Math.floor(tour.ratingsAverage);
-  const hasHalfStar = tour.rating - filledStars >= 0.5;
+  const hasHalfStar = tour.ratingAverage - filledStars >= 0.5;
   const emptyStars = 5 - filledStars - (hasHalfStar ? 1 : 0);
 
 
