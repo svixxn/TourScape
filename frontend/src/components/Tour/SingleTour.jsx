@@ -8,9 +8,13 @@ import GuidesSection from './GuidesSection'
 import InfoSection from './InfoSection'
 import PhotoSection from './PhotoSection'
 import DescSection from './DescSection'
+import BookingSection from './BookingSection'
 
 const SingleTour = () => {
+
+
   const [tour, setTour] = useState(null)
+
   const { slug } = useParams()
   const filledStars = Math.floor(tour?.ratingsAverage);
   const hasHalfStar = tour?.ratingAverage - filledStars >= 0.5;
@@ -49,19 +53,16 @@ const SingleTour = () => {
       <div className='container mx-auto mt-10'>
         <div className='grid grid-cols-1 p-4 lg:p-0 lg:grid-cols-12 gap-4'>
           <div className="col-span-8">
-            <DescSection tour={tour} filledStars={filledStars} hasHalfStar={hasHalfStar} emptyStars={emptyStars}/>
+            <DescSection tour={tour} filledStars={filledStars} hasHalfStar={hasHalfStar} emptyStars={emptyStars} />
             <LineWithText content={"Info"} />
             <InfoSection tour={tour} />
             <LineWithText content={"Guides"} />
-            <GuidesSection tour={tour}/>
+            <GuidesSection tour={tour} />
             <LineWithText content={"Locations"} />
             <LocationsSection tour={tour} />
           </div>
-          {/* TODO: finish page */}
           <div className="col-span-4">
-            <div className="w-full h-[45%] flex flex-col border border-gray-400 rounded-xl p-8">
-              <h1 className='font-bold text-3xl'>Reserve your spot</h1>
-            </div>
+            <BookingSection tour={tour} />
           </div>
 
         </div>

@@ -49,7 +49,7 @@ const SingleReview = ({ review }) => {
     )
 
 
-   review.createdAt = (new Date(review.createdAt)).toLocaleString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+   review.createdAt = (new Date(review.createdAt)).toLocaleString('en-GB', { day: 'numeric', month: 'long', year: 'numeric'})
    return (
       <div className="flex flex-col w-[30rem] border-2 border-neutral-800 rounded-xl p-4 mt-4 md:mt-0">
          <div className="flex items-center justify-between">
