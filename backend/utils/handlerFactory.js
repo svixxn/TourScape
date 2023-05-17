@@ -75,7 +75,7 @@ exports.getOne = (Model, popOptions) =>
         });
     });
 
-exports.getAll = Model =>
+exports.getAll = (Model, popOptions) =>
     catchAsync(async (req, res, next) => {
         let filter = {};
         if (req.params.tourId) filter = { tour: req.params.tourId };
@@ -88,6 +88,7 @@ exports.getAll = Model =>
             .search()
             .limitFields()
             .paginate();
+        if(popOptions) features.query = features.query.populate(popOptions)
         const doc = await features.query;
 
         res.status(200).json({

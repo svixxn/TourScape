@@ -17,6 +17,7 @@ const hotelRoutes = require("./routes/hotelRoutes")
 const destinationRoutes = require("../backend/routes/destinationRoutes")
 const restaurantRoutes = require("../backend/routes/restaurantRoutes")
 const reviewRoutes = require("../backend/routes/reviewRoutes")
+const bookingRoutes = require("../backend/routes/bookingRoutes")
 
 
 const app = express();
@@ -127,6 +128,7 @@ app.use('/api/destinations', destinationRoutes)
 app.use('/api/hotels', hotelRoutes)
 app.use('/api/restaurants', restaurantRoutes)
 app.use('/api/reviews', reviewRoutes)
+app.use('/api/bookings', bookingRoutes)
 
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 

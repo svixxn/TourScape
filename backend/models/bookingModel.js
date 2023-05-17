@@ -22,16 +22,28 @@ const bookingSchema = new mongoose.Schema({
     type: Number,
     require: [true, 'Booking must have a price.']
   },
-  paid: {
-    type: Boolean,
-    default: true
+  onDate: {
+    type:Date,
+    require: true
+  },
+  numberOfPeople: {
+    type: Number,
+    require: true
   }
 }, { timestamps: true });
 
 bookingSchema.pre(/^find/, function (next) {
-  this.populate('user').populate({
+  if (this.tour) this.populate({
     path: 'tour',
-    select: 'name'
+    select: 'name photo'
+  });
+  else if (this.hotel) this.populate({
+    path: 'hotel',
+    select: 'name photo'
+  });
+  else this.populate({
+    path: 'restaurant',
+    select: 'name photo'
   });
   next();
 });
