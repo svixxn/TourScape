@@ -11,6 +11,8 @@ const cookieParser = require('cookie-parser');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./middlewares/errorMiddleware');
 
+const bookingController = require('./controllers/bookingController')
+
 const userRoutes = require("../backend/routes/userRoutes")
 const tourRoutes = require("../backend/routes/toursRoutes")
 const hotelRoutes = require("./routes/hotelRoutes")
@@ -90,15 +92,9 @@ if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
 
-// // Limit requests from same API
-// const limiter = rateLimit({
-//     max: 200,
-//     windowMs: 60 * 60 * 1000,
-//     message: "Too many requests for this ip, please try again in an hour"
-// })
-// app.use('/api', limiter)
+app.post('/webhook-checkout', express.raw({type:'application/json'}), bookingController.checkoutWebhook)
 
-// Body parser, reading data from body into req.body
+
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(cookieParser());

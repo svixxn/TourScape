@@ -5,7 +5,7 @@ import Login from './components/Auth/Login'
 import SignUp from './components/Auth/SignUp'
 import Destinations from './components/Destination/Destinations';
 import SingleDestination from './components/Destination/SingleDestination';
-import NotFound from './components/NotFound/NotFound';
+import NotFound from './components/Pages/NotFound';
 import Navbar from './components/HeadFoot/Navbar'
 import Footer from './components/HeadFoot/Footer';
 import Home from './components/Home/Home';

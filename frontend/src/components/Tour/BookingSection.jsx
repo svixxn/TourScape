@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { BsChevronDown } from 'react-icons/bs'
 import { AiOutlineCalendar, AiOutlineUsergroupAdd } from 'react-icons/ai'
 import { RxCounterClockwiseClock } from 'react-icons/rx'
+import PayButton from './PayButton'
 
 const BookingSection = ({ tour }) => {
    tour.startDates = tour.startDates.map(date => {
@@ -60,7 +61,7 @@ const BookingSection = ({ tour }) => {
             <h1 className='mt-auto font-bold text-2xl'>Total: ${countOfPeople * tour.price}</h1>
          </div>
 
-         <button className='p-4 my-5 text-center bg-pink-600 text-white rounded-full hover:bg-pink-800 transition-all'>Reserve Now</button>
+         <PayButton item={tour} date={calendar} numberOfPeople={countOfPeople}/>
          <div className='flex flex-row gap-2 text-base'>
             <RxCounterClockwiseClock size={30} className='text-pink-600'/>
             Not sure? You can cancel this reservation up to 24 hours in advance for a full refund
