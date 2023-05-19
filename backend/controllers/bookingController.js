@@ -63,7 +63,7 @@ exports.checkoutWebhook = catchAsync(async (req, res, next) => {
    let event;
 
    try {
-      event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
+      event = stripe.webhooks.constructEvent(request.body, sig, process.env.STRIPE_SECRET_WEBHOOK);
    } catch (err) {
       return next(new AppError(`Webhook error: ${err}`), 400)
    }
