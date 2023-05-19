@@ -92,8 +92,11 @@ if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
 
-app.post('/webhook-checkout', express.raw({type:'application/json'}), bookingController.checkoutWebhook)
-
+app.post(
+    '/webhook-checkout',
+    express.raw({ type: 'application/json' }),
+    bookingController.checkoutWebhook
+);
 
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));

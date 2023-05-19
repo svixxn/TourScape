@@ -58,10 +58,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
 });
 
 exports.checkoutWebhook = catchAsync(async (req, res, next) => {
-
-   console.log("dfdfdfdfdfdf")
    const sig = req.headers['stripe-signature'];
-
    let event;
 
    try {
@@ -73,6 +70,7 @@ exports.checkoutWebhook = catchAsync(async (req, res, next) => {
   if(event.type === 'checkout.session.completed'){
    console.log(event.data)
   }
+  res.status(200).json({ received: true });
 })
 
 
