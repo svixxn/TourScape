@@ -23,29 +23,37 @@ exports.setModelUserIds = (req, res, next) => {
 
 
 exports.getCheckoutSession = catchAsync(async (req, res, next) => {
-   const onBooking = req.body.item;
+   const { item, numberOfPeople, startDate } = req.body;
+   const { price, name, summary, photo, slug } = item;
 
-   const price = onBooking.price * req.body.numberOfPeople * 100; // Calculate the total price
+   const successURL = `${req.protocol}://${req.get('host')}/tours`;
+   const cancelURL = `${req.protocol}://${req.get('host')}/tours/${slug}`;
 
+   const images = photo.map(photo => String(photo));
+   const unitAmount = price * numberOfPeople * 100;
 
    const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       mode: 'payment',
       customer_email: req.user.email,
-      success_url: `${req.protocol}://${req.get('host')}/tours`,
-      cancel_url: `${req.protocol}://${req.get('host')}/tours/${onBooking.slug}`,
+      success_url: successURL,
+      cancel_url: cancelURL,
       line_items: [{
          price_data: {
             currency: 'usd',
-            unit_amount: price,
+            unit_amount: unitAmount,
             product_data: {
-               name: onBooking.name,
-               description: onBooking.summary,
-               images: [`${onBooking.photo[0]}`],
+               name,
+               description: summary,
+               images,
             },
          },
-         quantity: 1
-      }]
+         quantity: 1,
+      }],
+      metadata: {
+         startDate,
+         numberOfPeople
+      }
    });
 
    res.status(200).json({
@@ -53,6 +61,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
       session
    });
 });
+
 
 exports.checkoutWebhook = catchAsync(async (req, res, next) => {
    const sig = req.headers['stripe-signature'];
@@ -63,10 +72,10 @@ exports.checkoutWebhook = catchAsync(async (req, res, next) => {
    } catch (err) {
       return next(new AppError(`Webhook error: ${err}`), 400)
    }
-   // TODO:
-   if (event.type === 'checkout.session.completed') {
+   // // TODO:
+   // if (event.type === 'checkout.session.completed') {
 
-   }
+   // }
 
    res.status(200).json({ received: true });
 })
