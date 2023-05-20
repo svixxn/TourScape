@@ -64,21 +64,23 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
 
 
 exports.checkoutWebhook = catchAsync(async (req, res, next) => {
-   const sig = req.headers['stripe-signature'];
-   let event;
+   const { 'stripe-signature': sig } = req.headers;
 
    try {
-      event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_SECRET_WEBHOOK);
-   } catch (err) {
-      return next(new AppError(`Webhook error: ${err}`), 400)
-   }
-   // // TODO:
-   // if (event.type === 'checkout.session.completed') {
+      const event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_SECRET_WEBHOOK);
 
-   // }
+      // TODO: Handle the event based on its type
+      // if (event.type === 'checkout.session.completed') {
+      //   ...
+      // }
+
+   } catch (err) {
+      return next(err); // Let the catchAsync middleware handle the error
+   }
 
    res.status(200).json({ received: true });
-})
+});
+
 
 
 
