@@ -27,6 +27,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
 
    const price = onBooking.price * req.body.numberOfPeople * 100; // Calculate the total price
 
+
    const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       mode: 'payment',
@@ -40,14 +41,14 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
             product_data: {
                name: onBooking.name,
                description: onBooking.summary,
-               metadata: {
-                  startDate: req.body.startDate,
-                  numberOfPeople: req.body.numberOfPeople
-               },
                images: [`${onBooking.photo[0]}`],
             },
          },
-         quantity: 1
+         quantity: 1,
+         metadata: {
+            startDate: req.body.startDate,
+            numberOfPeople: req.body.numberOfPeople
+         }
       }]
    });
 
@@ -66,12 +67,12 @@ exports.checkoutWebhook = catchAsync(async (req, res, next) => {
    } catch (err) {
       return next(new AppError(`Webhook error: ${err}`), 400)
    }
+   // TODO:
+   if (event.type === 'checkout.session.completed') {
 
-  if(event.type === 'checkout.session.completed'){
-      alert("dfdfdf")
-  }
+   }
 
-  res.status(200).json({ received: true });
+   res.status(200).json({ received: true });
 })
 
 
