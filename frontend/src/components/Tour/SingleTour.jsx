@@ -9,6 +9,7 @@ import InfoSection from './InfoSection'
 import PhotoSection from './PhotoSection'
 import DescSection from './DescSection'
 import BookingSection from './BookingSection'
+import ReviewsSection from './ReviewsSection'
 
 const SingleTour = () => {
 
@@ -64,8 +65,10 @@ const SingleTour = () => {
           <div className="col-span-4">
             <BookingSection tour={tour} />
           </div>
-
         </div>
+        <LineWithText content={"Reviews"} />
+          
+          <ReviewsSection tour={tour}/>
       </div>
     </div>
   )

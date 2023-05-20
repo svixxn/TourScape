@@ -11,6 +11,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^37.1.0",
+    "@ckeditor/ckeditor5-react": "^6.0.0",
     "@headlessui/react": "^1.7.14",
     "@vercel/analytics": "^1.0.1",
     "axios": "^1.4.0",

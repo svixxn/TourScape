@@ -19,7 +19,7 @@ exports.setModelUserIds = (req, res, next) => {
     next();
 }
 
-exports.getAllReviews = factory.getAll(Review, {path:'reviews'})
+exports.getAllReviews = factory.getAll(Review)
 
 exports.getReview = factory.getOne(Review)
 
