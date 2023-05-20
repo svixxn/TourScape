@@ -44,11 +44,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
                images: [`${onBooking.photo[0]}`],
             },
          },
-         quantity: 1,
-         metadata: {
-            startDate: req.body.startDate,
-            numberOfPeople: req.body.numberOfPeople
-         }
+         quantity: 1
       }]
    });
 
