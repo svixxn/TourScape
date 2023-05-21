@@ -1,14 +1,18 @@
 import { Fragment } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { useSignOut } from 'react-auth-kit'
 import { TourState } from '../../context/TourProvider';
 import { FaSearch } from 'react-icons/fa'
 import Drawer from "./Drawer";
 
 
 function Navbar() {
+  const signOut = useSignOut()
+  const {setLoadUser} = TourState();
+  const navigate = useNavigate();
   const { user } = TourState();
-  const {isDrawerOpen, setIsDrawerOpen} = TourState();
+  const { isDrawerOpen, setIsDrawerOpen } = TourState();
   const navigation = [
     { name: 'Destinations', href: '/destinations', current: false },
     { name: 'Tours', href: '/tours', current: false },
@@ -18,6 +22,12 @@ function Navbar() {
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
+  }
+
+  const signOutHandler = () => {
+    signOut();
+    setLoadUser(true)
+    navigate('/tours')
   }
 
   return (
@@ -30,7 +40,7 @@ function Navbar() {
                 <div className='flex flex-row justify-center items-center gap-2'>
                   <FaSearch className='cursor-pointer' onClick={() => setIsDrawerOpen(!isDrawerOpen)} />
                   {isDrawerOpen && <span className='animate-pulse'>Searching...</span>}
-                  <Drawer /> 
+                  <Drawer />
                 </div>
               </div>
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -105,12 +115,12 @@ function Navbar() {
                         </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
-                            <a
-                              href="#"
+                            <button
                               className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                              onClick={signOutHandler}
                             >
                               Sign out
-                            </a>
+                            </button>
                           )}
                         </Menu.Item>
                       </Menu.Items>

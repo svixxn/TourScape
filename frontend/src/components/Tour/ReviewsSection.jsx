@@ -41,12 +41,8 @@ const ReviewsSection = ({ tour }) => {
             },
          };
 
-         const parser = new DOMParser();
-         const doc = parser.parseFromString(reviewCurrent, "text/html");
-         const plainText = doc.body.textContent;
-
          await axios.post(`/api/tours/${tour._id}/reviews`, {
-            review: plainText,
+            review: reviewCurrent,
             rating: 3.5
          }, config);
          await fetchReviews();
