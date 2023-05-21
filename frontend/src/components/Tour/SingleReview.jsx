@@ -1,3 +1,4 @@
+import { useState } from "react";
 import StarRating from "../Utils/StarRating";
 
 /* eslint-disable react/prop-types */
@@ -5,6 +6,7 @@ const SingleReview = ({ review }) => {
    const filledStars = Math.floor(review.rating);
    const hasHalfStar = review.rating - filledStars >= 0.5;
    const emptyStars = 5 - filledStars - (hasHalfStar ? 1 : 0);
+   const [isEditing, setIsEditing] = useState(false)
 
    const createdAt = new Date(review.createdAt).toLocaleString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 

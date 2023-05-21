@@ -17,6 +17,15 @@ exports.deleteOne = Model => catchAsync(async (req, res, next) => {
 })
 
 
+exports.deleteAll = Model => catchAsync(async (req,res,next) => {
+    await Model.deleteMany({})
+    res.status(204).json({
+        status: 'success',
+        data: 'All Objects deleted successfully'
+    })
+})
+
+
 exports.updateOne = Model => catchAsync(async (req, res, next) => {
     const doc = await Model.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
@@ -34,18 +43,7 @@ exports.updateOne = Model => catchAsync(async (req, res, next) => {
 
 exports.createOne = Model =>
     catchAsync(async (req, res, next) => {
-        if (Model === Review && req.body.modelReview) {
-            let existed = undefined;
-            switch (req.body.modelReview) {
-                case "tour": existed = await Model.findOne({ user: req.body.user, tour: req.body.tour })
-                case "hotel": existed = await Model.findOne({ user: req.body.user, tour: req.body.hotel })
-                case "restaurant": existed = await Model.findOne({ user: req.body.user, restaurant: req.body.restaurant })
-                default: existed = null;
-            }
-            req.body.modelReview = undefined
-            if (existed) return next(new AppError('You have already added review.', 400))
-
-        }
+        
         const doc = await Model.create(req.body);
 
         res.status(201).json({
@@ -88,7 +86,7 @@ exports.getAll = (Model, popOptions) =>
             .search()
             .limitFields()
             .paginate();
-        if(popOptions) features.query = features.query.populate(popOptions)
+        if (popOptions) features.query = features.query.populate(popOptions)
         const doc = await features.query;
 
         res.status(200).json({

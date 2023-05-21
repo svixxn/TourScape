@@ -15,27 +15,27 @@ const Drawer = () => {
    const [search, setSearch] = useState("")
 
    useEffect(() => {
-      (async () => {
-         try {
-            setIsLoading(true)
-            const { data } = await axios.get(`/api/destinations?search=${search}`)
-            setIsLoading(false)
-            setResult(data.data.data)
-
-         } catch (err) {
-            toast.error('An error occured!', {
-               position: "bottom-left",
-               autoClose: 2000,
-               hideProgressBar: false,
-               closeOnClick: true,
-               draggable: true,
-               progress: undefined,
-               theme: "light",
-            });
+      if (isDrawerOpen)
+         (async () => {
+            try {
+               setIsLoading(true)
+               const { data } = await axios.get(`/api/destinations?search=${search}`)
+               setIsLoading(false)
+               setResult(data.data.data)
+            } catch (err) {
+               toast.error('An error occured!', {
+                  position: "bottom-left",
+                  autoClose: 2000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+               });
+            }
          }
-      }
-      )();
-   }, [search])
+         )();
+   }, [search, isDrawerOpen])
 
 
 
