@@ -27,7 +27,7 @@ function Navbar() {
   const signOutHandler = () => {
     signOut();
     setLoadUser(true)
-    navigate('/tours')
+    navigate('/')
   }
 
   return (
