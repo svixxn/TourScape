@@ -63,7 +63,7 @@ const ReviewsSection = ({ tour }) => {
          <ToastContainer />
          <div className='mb-6 text-center'>
             <input
-               className='w-full p-6 h-50 border-2 focus:outline-none focus:border-pink-600 transition-all'
+               className='w-full p-6 h-50 border-2 rounded-xl focus:outline-none focus:border-pink-600 transition-all'
                value={reviewCurrent}
                placeholder="Enter your review here..."
                onChange={(e) => setReviewCurrent(e.target.value)}
@@ -82,7 +82,7 @@ const ReviewsSection = ({ tour }) => {
                />
             </div>
          ) : (
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                {reviews?.map((review, index) => (
                   <SingleReview key={index} review={review} />
                ))}

@@ -3,6 +3,7 @@ import axios from "axios";
 import {useSignIn} from 'react-auth-kit'
 import { useNavigate  } from "react-router-dom";
 import { TourState } from "../../context/TourProvider";
+import Toast from "../Utils/Toast";
 
 
 function Login() {
@@ -37,11 +38,12 @@ function Login() {
           tokenType: "Bearer",
           authState: data.data.user,
         })) {
+          Toast({ type: "success", message: "Logged in Successfully", duration: 1000 });
           setLoadUser(true);
           navigate("/")
         }
     } catch (error) {
-        alert(error)
+      Toast({ type: "error", message: "User is not existed or credentials is wrong.", duration: 1000 });
     }
 };
   return (
