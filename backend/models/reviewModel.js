@@ -84,16 +84,6 @@ reviewSchema.post(/^findOneAnd/, function (doc, next) {
     next();
 });
 
-
-
-
-
-
-
-
-
-
-
 //For deleting all
 reviewSchema.pre('deleteMany', async function (next) {
     try {
