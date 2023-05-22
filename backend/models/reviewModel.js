@@ -33,8 +33,8 @@ const reviewSchema = new mongoose.Schema(
     },
     {
         timestamps: true,
-        toJSON: {virtuals: true},
-        toObject: {virtuals: true}
+        toJSON: { virtuals: true },
+        toObject: { virtuals: true }
     }
 );
 
@@ -49,13 +49,13 @@ reviewSchema.pre(/^find/, function (next) {
 reviewSchema.statics.calcAverageRatings = async function (tourId) {
     const stats = await this.aggregate([
         {
-            $match: {tour: tourId}
+            $match: { tour: tourId }
         },
         {
             $group: {
                 _id: '$tour',
-                nRating: {$sum: 1},
-                avgRating: {$avg: '$rating'}
+                nRating: { $sum: 1 },
+                avgRating: { $avg: '$rating' }
             }
         }
     ]);
@@ -79,14 +79,44 @@ reviewSchema.post('save', function () {
     this.constructor.calcAverageRatings(this.tour);
 });
 
-reviewSchema.pre(/^findOneAnd/, async function (next) {
-    this.r = await this.findOne();
+reviewSchema.post(/^findOneAnd/, function (doc, next) {
+    doc.constructor.calcAverageRatings(doc.tour);
     next();
 });
 
-reviewSchema.post(/^findOneAnd/, async function () {
-    await this.r.constructor.calcAverageRatings(this.r.tour);
+
+
+
+
+
+
+
+
+
+
+//For deleting all
+reviewSchema.pre('deleteMany', async function (next) {
+    try {
+        await Tour.updateMany({}, { ratingQuantity: 0, ratingsAverage: 4.5 })
+        next();
+    }
+    catch (err) {
+        console.log(err)
+    }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const Review = mongoose.model('Review', reviewSchema);
 
