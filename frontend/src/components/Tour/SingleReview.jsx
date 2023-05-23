@@ -31,7 +31,8 @@ const SingleReview = ({ review, fetchReviews }) => {
 
    const handleDelete = async () => {
       try {
-         if(!user && (review.user._id != user._id || user.role !="admin")) return;
+         if(!user) return;
+         if(review.user._id != user._id || user.role !="admin") return;
 
          const config = {
             headers: {
@@ -52,9 +53,10 @@ const SingleReview = ({ review, fetchReviews }) => {
 
    const handleSubmitEdit = async () => {
       try {
-         setIsEditing(prevState => !prevState)
-         if(!user && (review.user._id != user._id || user.role !="admin")) return;
+         if(!user)
+         if(review.user._id != user._id || user.role !="admin") return;
          if (!reviewEdited && !ratingEdited) return;
+         setIsEditing(prevState => !prevState)
 
          const config = {
             headers: {
