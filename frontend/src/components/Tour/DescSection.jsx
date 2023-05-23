@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import StarRating from '../Utils/StarRating'
 import { FaWallet } from 'react-icons/fa'
 
-const DescSection = ({ tour, filledStars, hasHalfStar, emptyStars }) => {
+const DescSection = ({ tour, filledStars,emptyStars }) => {
    return <>
       <h1 className='text-4xl text-primary font-bold'>{tour.name}</h1>
 
@@ -11,7 +11,7 @@ const DescSection = ({ tour, filledStars, hasHalfStar, emptyStars }) => {
          <Link to={`/destinations/${tour.destination.toLowerCase()}`}><span className='underline'> {tour.destination}</span></Link>
       </h3>
       <div className='flex flex-row gap-x-2 my-4 items-center'>
-         <StarRating filledStars={filledStars} hasHalfStar={hasHalfStar} emptyStars={emptyStars} />
+         <StarRating filledStars={filledStars} emptyStars={emptyStars} />
          <span className="pb-1">{tour.ratingsAverage}</span>
          <span className="pb-[0.125rem] text-gray-500 text-base">({tour.ratingQuantity} reviews)</span>
       </div>

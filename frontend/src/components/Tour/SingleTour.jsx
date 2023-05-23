@@ -17,9 +17,8 @@ const SingleTour = () => {
   const [tour, setTour] = useState(null)
 
   const { slug } = useParams()
-  const filledStars = Math.floor(tour?.ratingsAverage);
-  const hasHalfStar = tour?.ratingAverage - filledStars >= 0.5;
-  const emptyStars = 5 - filledStars - (hasHalfStar ? 1 : 0);
+  const filledStars = Math.round(tour?.ratingsAverage);
+  const emptyStars = 5 - filledStars;
 
   useEffect(() => {
     (async () => {
@@ -54,7 +53,7 @@ const SingleTour = () => {
       <div className='container mx-auto mt-10'>
         <div className='grid grid-cols-1 p-4 lg:p-0 lg:grid-cols-12 gap-4'>
           <div className="col-span-8">
-            <DescSection tour={tour} filledStars={filledStars} hasHalfStar={hasHalfStar} emptyStars={emptyStars} />
+            <DescSection tour={tour} filledStars={filledStars} emptyStars={emptyStars} />
             <LineWithText content={"Info"} />
             <InfoSection tour={tour} />
             <LineWithText content={"Guides"} />

@@ -1,12 +1,10 @@
 /* eslint-disable react/prop-types */
-import { ImStarEmpty, ImStarFull, ImStarHalf } from "react-icons/im";
 import { Link } from "react-router-dom"
 import StarRating from "../Utils/StarRating";
 
 const SingleTourCard = ({ tour }) => {
-  const filledStars = Math.floor(tour.ratingsAverage);
-  const hasHalfStar = tour.ratingAverage - filledStars >= 0.5;
-  const emptyStars = 5 - filledStars - (hasHalfStar ? 1 : 0);
+  const filledStars = Math.round(tour.ratingsAverage);
+  const emptyStars = 5 - filledStars;
 
 
   return (
@@ -20,7 +18,7 @@ const SingleTourCard = ({ tour }) => {
           </p>
           <div className="mt-auto">
             <div className='flex flex-row gap-x-2 my-4 items-center'>
-              <StarRating filledStars={filledStars} hasHalfStar={hasHalfStar} emptyStars={emptyStars} />
+              <StarRating filledStars={filledStars} emptyStars={emptyStars} />
               <span className="pb-1">{tour.ratingsAverage}</span>
               <span className="pb-[0.125rem] text-gray-500 text-base">({tour.ratingQuantity} reviews)</span>
             </div>

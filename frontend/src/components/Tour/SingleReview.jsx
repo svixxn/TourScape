@@ -11,9 +11,8 @@ import StarRatingButtons from "../Utils/StarRatingButtons";
 /* eslint-disable react/prop-types */
 const SingleReview = ({ review, fetchReviews }) => {
    const { user } = TourState()
-   const filledStars = Math.floor(review.rating);
-   const hasHalfStar = review.rating - filledStars >= 0.5;
-   const emptyStars = 5 - filledStars - (hasHalfStar ? 1 : 0);
+   const filledStars = Math.round(review.rating);
+   const emptyStars = 5 - filledStars;
    const [isEditing, setIsEditing] = useState(false)
    const [reviewEdited, setReviewEdited] = useState(review.review)
    const [ratingEdited, setRatingEdited] = useState(review.rating)
@@ -31,20 +30,20 @@ const SingleReview = ({ review, fetchReviews }) => {
 
    const handleDelete = async () => {
       try {
-         if(!user) return;
-         if(review.user._id != user._id || user.role !="admin") return;
-
-         const config = {
-            headers: {
-               "Content-type": "application/json",
-            },
-         };
-         await axios.delete(
-            `/api/reviews/${review._id}`,
-            config
-         );
-         fetchReviewsAfterChange();
-         Toast({ type: "success", message: `Review was deleted.`, duration: 2000 });
+         if (!user) return;
+         if (review.user._id == user._id || user.role == "admin") {
+            const config = {
+               headers: {
+                  "Content-type": "application/json",
+               },
+            };
+            await axios.delete(
+               `/api/reviews/${review._id}`,
+               config
+            );
+            fetchReviewsAfterChange();
+            Toast({ type: "success", message: `Review was deleted.`, duration: 2000 });
+         }
       } catch (err) {
          Toast({ type: "error", message: `${err.response.data.message}`, duration: 2000 });
       }
@@ -53,8 +52,8 @@ const SingleReview = ({ review, fetchReviews }) => {
 
    const handleSubmitEdit = async () => {
       try {
-         if(!user) return;
-         if(review.user._id != user._id || user.role !="admin") return;
+         if (!user) return;
+         if (review.user._id != user._id) return;
          if (!reviewEdited && !ratingEdited) return;
          setIsEditing(prevState => !prevState)
 
@@ -111,6 +110,11 @@ const SingleReview = ({ review, fetchReviews }) => {
                      </button>
                   </div>
                )}
+               {user.role === "admin" && (
+                  <button className="p-4 rounded-xl hover:bg-red-600 text-black transition-all border-2 border-gray-300" onClick={handleDelete}>
+                     <AiFillDelete />
+                  </button>
+               )}
                <span className="font-light">{createdAt}</span>
             </div>
          </div>
@@ -118,7 +122,7 @@ const SingleReview = ({ review, fetchReviews }) => {
             <StarRatingButtons rating={ratingEdited} setRating={setRatingStars} size={10} />
          ) : (
             <div className='flex gap-5 my-2'>
-               <StarRating filledStars={filledStars} hasHalfStar={hasHalfStar} emptyStars={emptyStars} />
+               <StarRating filledStars={filledStars} emptyStars={emptyStars} />
             </div>
          )}
 
