@@ -94,7 +94,7 @@ const SingleReview = ({ review, fetchReviews }) => {
 
 
    return (
-      <div className="flex flex-col w-full border-l-2 border-gray-300 p-6 mt-4 md:mt-0 shadow-2xl">
+      <div className="flex flex-col w-full border-l-2 border-gray-300 p-6 mt-4 md:mt-0 shadow-xl">
          <div className="flex items-center justify-between">
             <div className="flex items-center">
                <img className="h-10 w-10 rounded-full mr-2" src={review.user.photo} alt={review.user.name} />
