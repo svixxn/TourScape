@@ -101,7 +101,7 @@ const SingleReview = ({ review, fetchReviews }) => {
                <span className="font-bold">{review.user.name}</span>
             </div>
             <div className="flex flex-row items-center gap-2">
-               {user._id === review.user._id && (
+               {user?._id === review.user._id && (
                   <div className="flex flex-row gap-1">
                      <button className={`p-4 rounded-xl hover:bg-yellow-300 text-black transition-all border-2 border-gray-300 ${isEditing && 'bg-yellow-300 animate-pulse'}`} onClick={handleEditing}>
                         <FiEdit2 />
