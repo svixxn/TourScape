@@ -1,18 +1,25 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState, useCallback } from "react";
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Cookies from "js-cookie";
 import axios from "axios";
 import { RotatingLines } from "react-loader-spinner"
 import SingleReview from "./SingleReview";
 import { ToastContainer } from 'react-toastify';
 import Toast from "../Utils/Toast";
+import StarRatingButtons from "../Utils/StarRatingButtons";
+import LineWithText from "../Utils/LineWithText";
 
 const ReviewsSection = ({ tour }) => {
    const authToken = Cookies.get('_auth');
    const [reviews, setReviews] = useState([]);
    const [reviewCurrent, setReviewCurrent] = useState("");
    const [isLoading, setIsLoading] = useState(false);
+   const [rating, setRating] = useState(3)
+   
+
+   const setRatingStars = (stars) => {
+      setRating(stars)
+   }
 
    const fetchReviews = useCallback(async () => {
       try {
@@ -29,7 +36,7 @@ const ReviewsSection = ({ tour }) => {
 
    const handleAddReview = async () => {
       try {
-         if(!reviewCurrent){
+         if (!reviewCurrent) {
             Toast({ type: "warning", message: "Empty review!", duration: 1000 });
             return;
          }
@@ -43,7 +50,7 @@ const ReviewsSection = ({ tour }) => {
 
          await axios.post(`/api/tours/${tour._id}/reviews`, {
             review: reviewCurrent,
-            rating: 3.5
+            rating
          }, config);
          await fetchReviews();
          Toast({ type: "success", message: "Review Added Successfully", duration: 1000 });
@@ -52,21 +59,25 @@ const ReviewsSection = ({ tour }) => {
          Toast({ type: "error", message: `${error.response.data.message}`, duration: 2000 });
       }
       setReviewCurrent("");
+      setRating(3)
       setIsLoading(false);
    }
    return (
       <>
          <ToastContainer />
-         <div className='mb-6 text-center'>
+         <div className='flex flex-col items-center mb-6 text-center gap-5 mt-10'>
             <input
                className='w-full p-6 h-50 border-2 rounded-xl focus:outline-none focus:border-pink-600 transition-all'
                value={reviewCurrent}
                placeholder="Enter your review here..."
                onChange={(e) => setReviewCurrent(e.target.value)}
             />
-            <button className='p-4 my-5 w-1/2 text-center bg-pink-600 text-white rounded-full hover:bg-pink-800 transition-all' onClick={handleAddReview}>Add review</button>
+            <div className="text-center">
+               <StarRatingButtons rating={rating} setRating={setRatingStars} size={12}/>
+            </div>
+            <button className='p-4 w-1/2 text-center bg-pink-600 text-white rounded-full hover:bg-pink-800 transition-all' onClick={handleAddReview}>Add review</button>
          </div>
-
+         <LineWithText content={"Reviews"} />
          {isLoading ? (
             <div className="flex flex-row items-center justify-center my-4">
                <RotatingLines
@@ -78,11 +89,13 @@ const ReviewsSection = ({ tour }) => {
                />
             </div>
          ) : (
+            reviews.length>0?
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                {reviews?.map((review, index) => (
-                  <SingleReview key={index} review={review} />
+                  <SingleReview key={index} review={review} fetchReviews={fetchReviews} />
                ))}
-            </div>
+            </div>:
+            <p className="text-2xl text-primary">There are no reviews yet. Be first to add a review!</p>
          )}
       </>
    );

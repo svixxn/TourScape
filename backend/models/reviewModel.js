@@ -59,7 +59,6 @@ reviewSchema.statics.calcAverageRatings = async function (tourId) {
             }
         }
     ]);
-    // console.log(stats);
 
     if (stats.length > 0) {
         await Tour.findByIdAndUpdate(tourId, {
@@ -69,13 +68,12 @@ reviewSchema.statics.calcAverageRatings = async function (tourId) {
     } else {
         await Tour.findByIdAndUpdate(tourId, {
             ratingQuantity: 0,
-            ratingsAverage: 4.5
+            ratingsAverage: 4
         });
     }
 };
 
 reviewSchema.post('save', function () {
-    // this points to current review
     this.constructor.calcAverageRatings(this.tour);
 });
 
@@ -84,10 +82,10 @@ reviewSchema.post(/^findOneAnd/, function (doc, next) {
     next();
 });
 
-//For deleting all
+
 reviewSchema.pre('deleteMany', async function (next) {
     try {
-        await Tour.updateMany({}, { ratingQuantity: 0, ratingsAverage: 4.5 })
+        await Tour.updateMany({}, { ratingQuantity: 0, ratingsAverage: 4 })
         next();
     }
     catch (err) {

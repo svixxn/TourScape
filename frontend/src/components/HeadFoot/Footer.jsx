@@ -7,7 +7,7 @@
 function Footer() {
   return (
    <footer
-     className="text-center bg-neutral-800 text-neutral-200 lg:text-left">
+     className="text-center bg-neutral-800 text-neutral-200 lg:text-left mt-4">
      <div
        className="flex items-center justify-center border-b-2 p-6 border-neutral-500 lg:justify-between">
        <div className="mr-12 hidden lg:block">

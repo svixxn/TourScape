@@ -1,6 +1,6 @@
 const GrayLine = () => {
   return (
-   <hr className="border-1 border-gray-300 my-6"/>
+   <hr className="border-1 border-gray-400 my-6"/>
   )
 }
 

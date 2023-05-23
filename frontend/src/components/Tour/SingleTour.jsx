@@ -66,9 +66,8 @@ const SingleTour = () => {
             <BookingSection tour={tour} />
           </div>
         </div>
-        <LineWithText content={"Reviews"} />
-          
-          <ReviewsSection tour={tour}/>
+
+        <ReviewsSection tour={tour} />
       </div>
     </div>
   )
