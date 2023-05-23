@@ -53,7 +53,7 @@ const SingleReview = ({ review, fetchReviews }) => {
 
    const handleSubmitEdit = async () => {
       try {
-         if(!user)
+         if(!user) return;
          if(review.user._id != user._id || user.role !="admin") return;
          if (!reviewEdited && !ratingEdited) return;
          setIsEditing(prevState => !prevState)
