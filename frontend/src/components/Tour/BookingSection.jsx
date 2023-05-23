@@ -29,7 +29,7 @@ const BookingSection = ({ tour }) => {
    }
 
    return (
-      <div className={`w-full flex flex-col border border-gray-400 rounded-xl p-8 ${isCalendarOpen ? 'h-[53rem]' : 'h-[44rem]'}`}>
+      <div className={`w-full flex flex-col border border-gray-400 rounded-xl p-8 ${isCalendarOpen ? 'h-[53rem]' : 'h-[44rem]'} shadow-xl`}>
          <h1 className='font-bold text-3xl'>Reserve your spot</h1>
          <div className='w-full mt-3 font-medium'>
             <div onClick={() => setIsCalendarOpen((prevState) => !prevState)} className={`bg-white hover:bg-gray-300 border-2 transition-all w-full p-3 flex items-center justify-between rounded-full cursor-pointer text-center ${!calendar && 'text-gray-500'}`}>
