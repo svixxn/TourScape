@@ -5,6 +5,7 @@ const Restaurant = require("../models/restaurantModel")
 const catchAsync = require("../utils/catchAsync")
 const factory = require('../utils/handlerFactory')
 const AppError = require("../utils/appError")
+const User = require("../models/userModel")
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
 exports.setModelUserIds = (req, res, next) => {
@@ -36,7 +37,6 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
       payment_method_types: ['card'],
       mode: 'payment',
       customer_email: req.user.email,
-      customer: req.user._id,
       success_url: successURL,
       client_reference_id: item._id,
       cancel_url: cancelURL,
@@ -84,19 +84,25 @@ exports.checkoutWebhook = catchAsync(async (req, res, next) => {
      if (event.type === 'checkout.session.completed') {
        const session = event.data.object;
  
-       const { line_items, metadata, customer } = session;
+       const { line_items, metadata, customer_email } = session;
        const lineItem = line_items[0]; 
  
        const { name, amount_total } = lineItem.price_data;
        const { startDate, numberOfPeople } = metadata; 
+
+
+       const user = User.findOne({email: customer_email})
+       const newStartDate = new Date(startDate).toISOString();
+
+
  
        // Create the booking
        await Booking.create({
          tour: name,
-         user: customer, 
+         user: user._id, 
          price: amount_total / 100, 
-         startDate,
-         numberOfPeople,
+         onDate:newStartDate,
+         numberOfPeople
        });
      }
    } catch (err) {
