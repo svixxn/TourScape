@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-// import axios from "axios"
 
 
 const TourContext = createContext({});

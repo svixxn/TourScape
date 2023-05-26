@@ -1,4 +1,4 @@
-import { AuthProvider } from 'react-auth-kit'
+import { AuthProvider, RequireAuth } from 'react-auth-kit'
 import { Routes, Route } from 'react-router-dom';
 import TourProvider from './context/TourProvider';
 import Login from './components/Auth/Login'
@@ -13,6 +13,7 @@ import { Analytics } from '@vercel/analytics/react';
 import './App.css'
 import Tours from './components/Tour/Tours';
 import SingleTour from './components/Tour/SingleTour';
+import MyCabinet from './components/My/MyCabinet';
 
 function App() {
   return (
@@ -36,6 +37,13 @@ function App() {
             <Route path="/tours">
               <Route index element={<Tours />}></Route>
               <Route path=":slug" element={<SingleTour />}></Route>
+            </Route>
+            <Route path='/my'>
+              <Route index element={
+                <RequireAuth loginPath='/login'>
+                  <MyCabinet />
+                </RequireAuth>
+              }></Route>
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
