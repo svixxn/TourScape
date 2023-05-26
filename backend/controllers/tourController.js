@@ -28,7 +28,7 @@ exports.getTourStats = catchAsync(async (req, res,next) => {
     const stats = await Tour.aggregate([
         {
             $match: {
-                ratingsAverage: {$gte: 4.5}
+                ratingsAverage: {$gte: 3}
             }
         },
         {
@@ -128,7 +128,7 @@ exports.getDistances = catchAsync(async (req, res, next) => {
     if (!lat || !lng) {
         next(
             new AppError(
-                'Please provide latitutr and longitude in the format lat,lng.',
+                'Please provide latitude and longitude in the format lat,lng.',
                 400
             )
         );

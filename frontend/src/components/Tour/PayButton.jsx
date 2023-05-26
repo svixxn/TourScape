@@ -1,5 +1,6 @@
 import axios from "axios";
 import Cookies from 'js-cookie';
+import Toast from "../Utils/Toast";
 
 
 /* eslint-disable react/prop-types */
@@ -8,6 +9,10 @@ const PayButton = ({ item, date, numberOfPeople }) => {
 
 
    const handleCheckout = async () => {
+    if(!authToken) {
+      Toast({ type: "error", message: `You're not logged in.`, duration: 2000 });
+      return;
+    }
       try {
         const config = {
           headers: {

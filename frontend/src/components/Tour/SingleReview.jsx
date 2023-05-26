@@ -110,7 +110,7 @@ const SingleReview = ({ review, fetchReviews }) => {
                      </button>
                   </div>
                )}
-               {user.role === "admin" && (
+               {user?.role === "admin" && (
                   <button className="p-4 rounded-xl hover:bg-red-600 text-black transition-all border-2 border-gray-300" onClick={handleDelete}>
                      <AiFillDelete />
                   </button>

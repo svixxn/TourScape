@@ -73,24 +73,24 @@ exports.checkoutWebhook = catchAsync(async (req, res, next) => {
        process.env.STRIPE_SECRET_WEBHOOK
      );
  
-   //   if (event.type === 'checkout.session.completed') {
-   //     const session = event.data.object;
+     if (event.type === 'checkout.session.completed') {
+       const session = event.data.object;
  
-   //     const { line_items, metadata, customer } = session;
-   //     const lineItem = line_items[0]; 
+       const { line_items, metadata, customer } = session;
+       const lineItem = line_items[0]; 
  
-   //     const { name, amount_total } = lineItem.price_data;
-   //     const { startDate, numberOfPeople } = metadata; 
+       const { name, amount_total } = lineItem.price_data;
+       const { startDate, numberOfPeople } = metadata; 
  
-   //     // Create the booking
-   //     await Booking.create({
-   //       tour: name,
-   //       user: customer, 
-   //       price: amount_total / 100, 
-   //       startDate,
-   //       numberOfPeople,
-   //     });
-   //   }
+       // Create the booking
+       await Booking.create({
+         tour: name,
+         user: customer, 
+         price: amount_total / 100, 
+         startDate,
+         numberOfPeople,
+       });
+     }
    } catch (err) {
      return next(new AppError(`Webhook error: ${err}`, 400)); 
    }

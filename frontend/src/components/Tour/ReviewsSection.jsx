@@ -35,6 +35,10 @@ const ReviewsSection = ({ tour }) => {
    }, [fetchReviews]);
 
    const handleAddReview = async () => {
+      if(!authToken){
+         Toast({ type: "error", message: `You're not logged in.`, duration: 2000 });
+         return;
+      }
       try {
          if (!reviewCurrent) {
             Toast({ type: "warning", message: "Empty review!", duration: 1000 });

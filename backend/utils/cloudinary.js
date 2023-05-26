@@ -31,11 +31,29 @@ exports.createMulti = (keys, folder, public_id, width, height) => {
       height: height,
     },
   });
-  
+
   return multer({ storage: storage, fileFilter: fileFilter }).array(
     keys
   );
 };
+
+exports.createSingle = (key, folder, public_id, width, height) => {
+  const storage = new CloudinaryStorage({
+    cloudinary,
+    params: {
+      folder: `TourScape/${folder}`,
+      public_id: () => public_id,
+      overwrite: true,
+      resource_type: 'image',
+      crop: "scale",
+      width: width,
+      height: height,
+    },
+  });
+  return multer({ storage: storage, fileFilter: fileFilter }).single(
+    key
+  );
+}
 
 exports.deleteSingle = (folder, public_id) => {
   cloudinary.uploader.destroy(`TourScape/${folder}/${public_id}`);

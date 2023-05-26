@@ -4,6 +4,7 @@ import { BsChevronDown } from 'react-icons/bs'
 import { AiOutlineCalendar, AiOutlineUsergroupAdd } from 'react-icons/ai'
 import { RxCounterClockwiseClock } from 'react-icons/rx'
 import PayButton from './PayButton'
+import { TourState } from '../../context/TourProvider'
 
 const BookingSection = ({ tour }) => {
    tour.startDates = tour.startDates.map(date => {
