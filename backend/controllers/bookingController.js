@@ -67,7 +67,7 @@ exports.checkoutWebhook = catchAsync(async (req, res, next) => {
    const sig = req.headers['stripe-signature'];
    console.log(sig)
    console.log(process.env.STRIPE_SECRET_WEBHOOK)
-   console.log(req.body)
+   
  
    try {
      const event = stripe.webhooks.constructEvent(
@@ -75,6 +75,8 @@ exports.checkoutWebhook = catchAsync(async (req, res, next) => {
        sig,
        process.env.STRIPE_SECRET_WEBHOOK
      );
+
+     console.log(event)
      
  
      if (event.type === 'checkout.session.completed') {
