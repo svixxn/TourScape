@@ -27,7 +27,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
    const { item, numberOfPeople, startDate } = req.body;
    const { price, name, summary, photo, slug } = item;
 
-   const successURL = `${req.protocol}://${req.get('host')}/tours`;
+   const successURL = `${req.protocol}://${req.get('host')}/my`;
    const cancelURL = `${req.protocol}://${req.get('host')}/tours/${slug}`;
 
    const images = photo.map(photo => String(photo));
@@ -107,6 +107,16 @@ exports.checkoutWebhook = catchAsync(async (req, res, next) => {
    res.status(200).json({ received: true });
  });
  
+exports.getMyBookings = catchAsync(async (req,res,next) => {
+   const myBookings = await Booking.find({user: req.user._id}).populate({path: "tour hotel restaurant", select: "name duration photo"})
+
+   res.status(200).json({
+      status: 'success',
+      data: {
+          data: myBookings
+      }
+  });
+})
 
 
 
@@ -115,8 +125,7 @@ exports.checkoutWebhook = catchAsync(async (req, res, next) => {
 
 
 
-
-exports.getAllBookings = factory.getAll(Booking)
+exports.getAllBookings = factory.getAll(Booking, { path: 'tour', select: 'name photo duration'})
 
 exports.getBooking = factory.getOne(Booking)
 

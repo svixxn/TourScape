@@ -7,8 +7,9 @@ import axios from "axios"
 import { ToastContainer } from 'react-toastify';
 import Toast from "../Utils/Toast"
 import { useNavigate } from "react-router-dom"
-import { useSignOut, useSignIn } from "react-auth-kit"
+import { useSignOut } from "react-auth-kit"
 import Cookies from "js-cookie"
+import MyBookingsSection from "./MyBookingsSection"
 
 
 const MyCabinet = () => {
@@ -130,6 +131,8 @@ const MyCabinet = () => {
                </div>
             </div>
          </div>
+
+         <MyBookingsSection />
       </div >
    )
 }
