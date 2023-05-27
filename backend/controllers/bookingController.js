@@ -85,17 +85,12 @@ exports.checkoutWebhook = catchAsync(async (req, res, next) => {
        const session = event.data.object;
 
  
-       const { client_reference_id, metadata, customer_email } = session;
+       const { client_reference_id, metadata, customer_email, amount_total } = session;
  
        const { startDate, numberOfPeople } = metadata; 
 
        const user = await User.findOne({email: customer_email})
        const newStartDate = new Date(startDate).toISOString();
-
-       console.log(client_reference_id)
-       console.log(startDate)
-       console.log(numberOfPeople)
-       console.log(customer_email)
 
        await Booking.create({
          tour: client_reference_id,
