@@ -14,6 +14,8 @@ import './App.css'
 import Tours from './components/Tour/Tours';
 import SingleTour from './components/Tour/SingleTour';
 import MyCabinet from './components/My/MyCabinet';
+import AdminPanel from './components/AdminPanel/AdminPanel';
+import RequireAdmin from './components/Utils/RequireAdmin';
 
 function App() {
   return (
@@ -38,13 +40,19 @@ function App() {
               <Route index element={<Tours />}></Route>
               <Route path=":slug" element={<SingleTour />}></Route>
             </Route>
-            <Route path='/my'>
-              <Route index element={
-                <RequireAuth loginPath='/login'>
-                  <MyCabinet />
-                </RequireAuth>
-              }></Route>
-            </Route>
+
+            <Route path='/my' element={
+              <RequireAuth loginPath='/login'>
+                <MyCabinet />
+              </RequireAuth>
+            }></Route>
+            <Route path='/adminpanel' element={
+              <RequireAuth loginPath='/login'>
+                <RequireAdmin>
+                  <AdminPanel />
+                </RequireAdmin>
+              </RequireAuth>
+            }></Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />

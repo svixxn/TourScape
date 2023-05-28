@@ -9,7 +9,7 @@ import Drawer from "./Drawer";
 
 function Navbar() {
   const signOut = useSignOut()
-  const {setLoadUser} = TourState();
+  const { setLoadUser } = TourState();
   const navigate = useNavigate();
   const { user } = TourState();
   const { isDrawerOpen, setIsDrawerOpen } = TourState();
@@ -102,16 +102,17 @@ function Navbar() {
                             </Link>
                           )}
                         </Menu.Item>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <a
-                              href="#"
-                              className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                            >
-                              Settings
-                            </a>
-                          )}
-                        </Menu.Item>
+                        {(user.role === 'admin' || user.role === 'lead-guide') && (
+                          <Menu.Item>
+                            {({ active }) => (
+                              <Link to={'/adminpanel'}
+                                className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                              >
+                                Admin Panel
+                              </Link>
+                            )}
+                          </Menu.Item>
+                        )}
                         <Menu.Item>
                           {({ active }) => (
                             <button

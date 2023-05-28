@@ -6,17 +6,15 @@ const router = express.Router({mergeParams:true});
 
 router.use(authMiddleware.protect)
 
-router.get('/', bookingController.getAllBookings)
+router.get('/',authMiddleware.restrictTo('admin', 'lead-guide'), bookingController.getAllBookings)
 router.get('/my', bookingController.getMyBookings)
 
-router.post('/checkout-session', bookingController.getCheckoutSession)
+router.post('/checkout-session', authMiddleware.restrictTo('user'), bookingController.getCheckoutSession)
 
 
 router.post('/', authMiddleware.restrictTo('user'), bookingController.setModelUserIds, bookingController.createBooking)
 router.route('/:id').delete(authMiddleware.restrictTo('user', 'admin'), bookingController.deleteBooking).patch(authMiddleware.restrictTo('user', 'admin'), bookingController.updateBooking).get(bookingController.getBooking)
-// router.get('/my', )
 
-router.use(authMiddleware.restrictTo('admin', 'lead-guide'))
 
 
 module.exports = router;
