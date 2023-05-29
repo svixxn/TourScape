@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 import { RxDotFilled, RxDot } from 'react-icons/rx';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Drawer from '../HeadFoot/Drawer';
 import { TourState } from '../../context/TourProvider';
@@ -46,7 +45,6 @@ const HomeCarousel = () => {
          >
             <div className='flex flex-row w-full justify-center items-center z-10'>
                <button className='bg-pink-600 p-3 w-72 rounded-full h-14 text-center leading-none border-white border-2 hover:bg-pink-700 transition duration-200' onClick={()=> setIsDrawerOpen(!isDrawerOpen)}>Start Searching Now</button>
-               <ToastContainer />
             </div>
             <Drawer />
             <p className='text-2xl text-center mt-4 z-10'><span className='text-6xl font-bold'>Excursions</span> <br />around the world</p>

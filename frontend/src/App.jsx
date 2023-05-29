@@ -16,6 +16,7 @@ import SingleTour from './components/Tour/SingleTour';
 import MyCabinet from './components/My/MyCabinet';
 import AdminPanel from './components/AdminPanel/AdminPanel';
 import RequireAdmin from './components/Utils/RequireAdmin';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         cookieSecure={window.location.protocol === "http:"}
       >
         <TourProvider>
+        <ToastContainer />
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />

@@ -1,4 +1,5 @@
 import LineWithText from '../Utils/LineWithText'
+import TourStats from './TourStats'
 import UsersTable from './UsersTable'
 
 const AdminPanel = () => {
@@ -7,7 +8,9 @@ const AdminPanel = () => {
       <div className="w-full flex flex-col text-center">
         <h1 className="text-primary text-4xl bold">Admin Panel</h1>
         <LineWithText content={"Users"} />
-        <UsersTable />
+        <UsersTable /> 
+        <LineWithText content={"Tour Statistics"} />
+        <TourStats />
       </div>
     </div>
   )

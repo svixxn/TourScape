@@ -4,7 +4,6 @@ import GrayLine from '../Utils/GrayLine'
 import { FiEdit2 } from "react-icons/fi"
 import { AiFillDelete, AiOutlineCheck } from "react-icons/ai"
 import axios from "axios"
-import { ToastContainer } from 'react-toastify';
 import Toast from "../Utils/Toast"
 import { useNavigate } from "react-router-dom"
 import { useSignOut } from "react-auth-kit"
@@ -77,7 +76,6 @@ const MyCabinet = () => {
 
    return (
       <div className="container mx-auto my-5">
-         <ToastContainer />
          <div className="h-1/2 w-full flex flex-row gap-5">
             <img src={`${user.photo}`} alt="" className="w-1/4 h-full rounded-lg" />
             <div className="w-1/3 flex flex-col">

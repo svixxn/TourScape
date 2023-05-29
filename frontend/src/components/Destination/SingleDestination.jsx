@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 import LineWithTextArrow from '../Utils/LineWithTextArrow';
 import MapBox from './MapBox';
 import ToursSection from './ToursSection';
 import HotelsSection from './HotelsSection';
 import RestaurantsSection from './RestaurantsSection';
+import Toast from '../Utils/Toast';
 
 
 const SingleDestination = () => {
@@ -20,15 +20,7 @@ const SingleDestination = () => {
         const { data } = await axios.get(`/api/destinations/${slug}`)
         setDestination(data.data.data)
       } catch (err) {
-        toast.error('An error occured!', {
-          position: "bottom-left",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        Toast({ type: "error", message: `${err.response.data.message}`, duration: 1000 });
       }
     }
     )();
@@ -41,8 +33,7 @@ const SingleDestination = () => {
   )
 
   return (
-    <div>
-      <ToastContainer />
+    <div> 
       <div className='w-full h-50 p-0 md:p-4 lg:p-8 flex flex-col md:flex-row gap-4 items-center'>
         <img src={`${destination.photo[0]}`} className='w-[100%] md:w-[50%] rounded-0 md:rounded-xl' alt="" />
         <img src={`${destination.photo[1]}`} className='w-[100%] md:w-[50%] rounded-0 md:rounded-xl' alt="" />

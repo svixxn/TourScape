@@ -6,10 +6,9 @@ import { AiFillDelete, AiOutlineCheck } from "react-icons/ai";
 import { RotatingLines } from "react-loader-spinner";
 
 /* eslint-disable react/prop-types */
-const SingleUserRow = ({ user, fetchUsers }) => {
+const SingleUserRow = ({ user, fetchUsers, changeModal, handleDeleteUser }) => {
    const [newRole, setNewRole] = useState(user.role)
    const [isEditing, setIsEditing] = useState(false)
-   const [isDeleteOpen, setIsDeleteOpen] = useState(false)
    const [isLoading, setIsLoading] = useState(false)
 
    const handleChangeRole = async () => {
@@ -28,7 +27,10 @@ const SingleUserRow = ({ user, fetchUsers }) => {
       }
    }
 
-   //TODO: DELETE USER FUNCTIONALITY
+   const handleDelete = async () => {
+      handleDeleteUser(user)
+      changeModal()
+   }
 
    if (isLoading) return <div className="flex flex-row justify-center mt-2">
       <RotatingLines
@@ -75,9 +77,12 @@ const SingleUserRow = ({ user, fetchUsers }) => {
                         <FiEdit2 />
                      </button>
                      {!isEditing && (
-                        <button className={`p-4 rounded-xl hover:bg-red-600 text-black transition-all border-2 border-gray-300 ${isDeleteOpen && 'bg-red-600 text-white animate-pulse'}`} onClick={() => setIsDeleteOpen(prevState => !prevState)}>
-                           <AiFillDelete />
-                        </button>
+                        <>
+                           <button className={`p-4 rounded-xl hover:bg-red-600 text-black transition-all border-2 border-gray-300`} onClick={handleDelete}>
+                              <AiFillDelete />
+                           </button>
+
+                        </>
                      )}
                      {isEditing && (
                         <button className="p-4 rounded-xl hover:bg-green-500 text-black transition-all border-2 border-gray-300" onClick={handleChangeRole}>

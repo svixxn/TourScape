@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { ToastContainer, toast } from 'react-toastify';
 import SingleDestinationLink from "../Home/SingleDestinationLink";
 import { TourState } from "../../context/TourProvider";
 import { RotatingLines } from 'react-loader-spinner'
+import Toast from "../Utils/Toast";
 
 
 
@@ -23,15 +23,7 @@ const Drawer = () => {
                setIsLoading(false)
                setResult(data.data.data)
             } catch (err) {
-               toast.error('An error occured!', {
-                  position: "bottom-left",
-                  autoClose: 2000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  draggable: true,
-                  progress: undefined,
-                  theme: "light",
-               });
+               Toast({ type: "error", message: `${err.response.data.message}`, duration: 1000 });
             }
          }
          )();
@@ -54,7 +46,6 @@ const Drawer = () => {
                <input type="text" className='rounded-md px-4 py-2 border-none w-72 text-black' placeholder='Poltava' onChange={(e) => setSearch(e.target.value)} />
             </div>
             <div className="px-4 flex flex-col">
-               <ToastContainer />
                {isLoading ? (
                   <div className="flex flex-row justify-center mt-2">
                      <RotatingLines

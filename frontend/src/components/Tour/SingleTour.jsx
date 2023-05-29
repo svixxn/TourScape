@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { ToastContainer, toast } from 'react-toastify'
 import LineWithText from '../Utils/LineWithText'
 import LocationsSection from './LocationsSection'
 import GuidesSection from './GuidesSection'
@@ -10,6 +9,7 @@ import PhotoSection from './PhotoSection'
 import DescSection from './DescSection'
 import BookingSection from './BookingSection'
 import ReviewsSection from './ReviewsSection'
+import Toast from '../Utils/Toast'
 
 const SingleTour = () => {
 
@@ -26,15 +26,7 @@ const SingleTour = () => {
         const { data } = await axios.get(`/api/tours/${slug}`)
         setTour(data.data.data)
       } catch (err) {
-        toast.error('An error occured!', {
-          position: "bottom-center",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        Toast({ type: "error", message: `${err.response.data.message}`, duration: 1000 });
       }
     }
     )();
@@ -48,7 +40,6 @@ const SingleTour = () => {
 
   return (
     <div>
-      <ToastContainer />
       <PhotoSection tour={tour} />
       <div className='container mx-auto mt-10'>
         <div className='grid grid-cols-1 p-4 lg:p-0 lg:grid-cols-12 gap-4'>

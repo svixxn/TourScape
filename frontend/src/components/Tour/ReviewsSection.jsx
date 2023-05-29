@@ -4,7 +4,6 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import { RotatingLines } from "react-loader-spinner"
 import SingleReview from "./SingleReview";
-import { ToastContainer } from 'react-toastify';
 import Toast from "../Utils/Toast";
 import StarRatingButtons from "../Utils/StarRatingButtons";
 import LineWithText from "../Utils/LineWithText";
@@ -68,7 +67,6 @@ const ReviewsSection = ({ tour }) => {
    }
    return (
       <>
-         <ToastContainer />
          <div className='flex flex-col items-center mb-6 text-center gap-5 mt-10'>
             <input
                className='w-full p-6 h-50 border-2 rounded-xl focus:outline-none focus:border-pink-600 transition-all'
