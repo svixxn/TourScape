@@ -1,5 +1,7 @@
 import LineWithText from '../Utils/LineWithText'
+import BookingStats from './BookingStats'
 import TourStats from './TourStats'
+import ReviewStats from './ReviewStats'
 import UsersTable from './UsersTable'
 
 const AdminPanel = () => {
@@ -11,6 +13,10 @@ const AdminPanel = () => {
         <UsersTable /> 
         <LineWithText content={"Tour Statistics"} />
         <TourStats />
+        <LineWithText content={"Booking Statistics"} />
+        <BookingStats />
+        <LineWithText content={"Review Statistics"} />
+        <ReviewStats />
       </div>
     </div>
   )

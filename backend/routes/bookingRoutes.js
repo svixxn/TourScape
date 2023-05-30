@@ -6,6 +6,7 @@ const router = express.Router({mergeParams:true});
 
 router.use(authMiddleware.protect)
 
+router.get('/booking-stats',authMiddleware.restrictTo('admin', 'lead-guide'),bookingController.getBookingStats);
 router.get('/',authMiddleware.restrictTo('admin', 'lead-guide'), bookingController.getAllBookings)
 router.get('/my', bookingController.getMyBookings)
 

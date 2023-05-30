@@ -65,8 +65,8 @@ const SingleDestination = () => {
 
       <div className="container mx-auto mt-10">
         <ToursSection tours={destination.tours} />
-        <HotelsSection hotels={destination.hotels} />
-        <RestaurantsSection restaurants={destination.restaurants} />
+        {/* <HotelsSection hotels={destination.hotels} />
+        <RestaurantsSection restaurants={destination.restaurants} /> */}
       </div>
     </div >
   )

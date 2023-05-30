@@ -118,6 +118,35 @@ exports.getMyBookings = catchAsync(async (req,res,next) => {
   });
 })
 
+exports.getBookingStats = catchAsync(async (req, res,next) => {
+   const stats = await Booking.aggregate([
+       {
+           $match: {}
+       },
+       {
+           $group: {
+               _id: {$toUpper: '$tour.name'},
+               num: {$sum: 1},
+               avgPrice: {$avg: '$price'},
+               minPrice: {$min: '$price'},
+               maxPrice: {$max: '$price'},
+               averagePeople: {$avg :'$numberOfPeople'},
+               minPeople: {$min :'$numberOfPeople'},
+               maxPeople: {$max :'$numberOfPeople'}
+           }
+       },
+       {
+           $sort: {
+               avgPrice: 1
+           }
+       }
+   ]);
+   res.status(200).json({
+       status: 'success',
+       data: {stats}
+   })
+})
+
 
 
 

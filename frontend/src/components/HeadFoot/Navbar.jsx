@@ -15,9 +15,7 @@ function Navbar() {
   const { isDrawerOpen, setIsDrawerOpen } = TourState();
   const navigation = [
     { name: 'Destinations', href: '/destinations', current: false },
-    { name: 'Tours', href: '/tours', current: false },
-    { name: 'Hotels', href: '/hotels', current: false },
-    { name: 'Restaurants', href: '/restaurants', current: false },
+    { name: 'Tours', href: '/tours', current: false }
   ]
 
   function classNames(...classes) {

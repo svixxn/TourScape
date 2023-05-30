@@ -43,6 +43,29 @@ exports.isReviewExisted = catchAsync(async (req, res, next) => {
 
 })
 
+exports.getReviewStats = catchAsync(async (req, res,next) => {
+   const stats = await Review.aggregate([
+       {
+         $group: {
+            _id: null,
+            totalReviews: { $sum: 1 },
+            averageRating: { $avg: "$rating" },
+            minRating: { $min: "$rating" },
+            maxRating: { $max: "$rating" }
+          }
+       },
+       {
+           $sort: {
+               avgPrice: 1
+           }
+       }
+   ]);
+   res.status(200).json({
+       status: 'success',
+       data: {stats}
+   })
+})
+
 exports.getAllReviews = factory.getAll(Review)
 
 exports.getReview = factory.getOne(Review)
