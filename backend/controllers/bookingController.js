@@ -67,8 +67,8 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
 const updateAvailablePlaces = catchAsync(async (date, numberOfPeople,client_reference_id) => {
    const tour = await Tour.findById(client_reference_id);
    console.log(tour.startDates)
-   console.log(new Date(date).toISOString())
-   const availablePlaces = tour.startDates.find(sd => sd.date === new Date(date).toISOString()).availablePlaces;
+   const newDate = new Date(date).toISOString().split("T")[0]
+   const availablePlaces = tour.startDates.find(sd => sd.date.split("T")[0] === newDate).availablePlaces;
    const updatedAvailablePlaces = availablePlaces - numberOfPeople;
    tour.startDates.find(sd => sd.date === date).availablePlaces = updatedAvailablePlaces;
 
