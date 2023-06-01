@@ -68,17 +68,17 @@ const updateAvailablePlaces = catchAsync(async (date, numberOfPeople,client_refe
    const tour = await Tour.findById(client_reference_id)
    const newDate = new Date(date).toISOString()  
 
-   console.log(newDate.toLocaleDateString().toLowerCase())
+   console.log(newDate)
    tour.startDates.forEach(date => {
       const testDate = date.date
-      console.log(testDate.toLocaleDateString().toLowerCase())
+      console.log(testDate.toISOString())
    })
 
-   console.log(tour.startDates.find(sd => sd.date === newDate))
+   console.log(tour.startDates.find(sd => sd.date.toISOString() === newDate))
 
-   const availablePlaces = tour.startDates.find(sd => sd.date === newDate)[0].availablePlaces;
+   const availablePlaces = tour.startDates.find(sd => sd.date.toISOString() === newDate)[0].availablePlaces;
    const updatedAvailablePlaces = availablePlaces - numberOfPeople;
-   tour.startDates.find(sd => sd.date === newDate)[0].availablePlaces = updatedAvailablePlaces;
+   tour.startDates.find(sd => sd.date.toISOString() === newDate)[0].availablePlaces = updatedAvailablePlaces;
 
    await tour.save();
 
