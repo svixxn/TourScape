@@ -76,9 +76,9 @@ const updateAvailablePlaces = catchAsync(async (date, numberOfPeople,client_refe
 
    console.log(tour.startDates.find(sd => sd.date.toISOString() === newDate))
 
-   const availablePlaces = tour.startDates.find(sd => sd.date.toISOString() === newDate)[0].availablePlaces;
+   const availablePlaces = tour.startDates.find(sd => sd.date.toISOString() === newDate).availablePlaces;
    const updatedAvailablePlaces = availablePlaces - numberOfPeople;
-   tour.startDates.find(sd => sd.date.toISOString() === newDate)[0].availablePlaces = updatedAvailablePlaces;
+   tour.startDates.find(sd => sd.date.toISOString() === newDate).availablePlaces = updatedAvailablePlaces;
 
    await tour.save();
 
