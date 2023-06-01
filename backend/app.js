@@ -99,8 +99,8 @@ app.post(
     bookingController.checkoutWebhook
 );
 
-app.use(express.json({ limit: '10kb' }));
-app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
 
 // Data sanitization against NoSQL query injection

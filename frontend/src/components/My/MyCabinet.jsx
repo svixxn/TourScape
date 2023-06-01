@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { TourState } from "../../context/TourProvider"
 import GrayLine from '../Utils/GrayLine'
 import { FiEdit2 } from "react-icons/fi"
@@ -6,38 +6,54 @@ import { AiFillDelete, AiOutlineCheck } from "react-icons/ai"
 import axios from "axios"
 import Toast from "../Utils/Toast"
 import { useNavigate } from "react-router-dom"
-import { useSignOut } from "react-auth-kit"
+import { useSignIn, useSignOut } from "react-auth-kit"
 import Cookies from "js-cookie"
 import MyBookingsSection from "./MyBookingsSection"
 
 
 const MyCabinet = () => {
    const authToken = Cookies.get('_auth');
-   const { user, setLoadUser } = TourState()
+   const { user, setUser, setLoadUser } = TourState()
    const [isEditing, setIsEditing] = useState(false)
-   const [newName, setNewName] = useState(user?.name)
-   const [newEmail, setNewEmail] = useState(user?.email)
+   const [newName, setNewName] = useState(null)
+   const [newEmail, setNewEmail] = useState(null)
+   const [newPhoto, setNewPhoto] = useState(null)
    const [isDeleteOpen, setIsDeleteOpen] = useState(false)
    const signOut = useSignOut();
    const navigate = useNavigate();
+   const signIn = useSignIn();
+
+   useEffect(()=> {
+      setNewName(user?.name)
+      setNewEmail(user?.email)
+      setNewPhoto(null)
+   },[user])
 
    const handleSubmitEdit = async () => {
+      if (newName === user.name && newEmail === user.email && !newPhoto) return;
       try {
          setIsEditing(prevState => !prevState)
-         console.log(user)
-
-         const config = {
-            headers: {
-               "Content-type": "application/json",
-               Authorization: `Bearer ${authToken}`
-            },
-         };
-         await axios.patch(
+         const formData = new FormData();
+         formData.append("name", newName);
+         formData.append("email", newEmail);
+         console.log(newName, newEmail, newPhoto)
+         if (newPhoto) {
+            formData.append("photo", newPhoto);
+         }
+         setNewPhoto(null)
+         const { data } = await axios.patch(
             `/api/users/updateme`,
-            { name: newName, email: newEmail },
-            config
+            formData
          );
-         setLoadUser(true)
+         setUser(data.data.user)
+         if (signIn({
+            token: authToken,
+            expiresIn: 3600,
+            tokenType: "Bearer",
+            authState: data.data.user,
+          })) {
+            Toast({ type: "success", message: "User updated", duration: 1000 });
+          }
       } catch (err) {
          Toast({ type: "error", message: `Error occurred`, duration: 2000 });
       }
@@ -65,6 +81,11 @@ const MyCabinet = () => {
       }
    }
 
+   const handlePhotoChange = (event) => {
+      const file = event.target.files[0];
+      setNewPhoto(file);
+   };
+
    if (!user) return <></>
    else {
       user.createdAt = (new Date(user?.createdAt)).toLocaleString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
@@ -76,7 +97,16 @@ const MyCabinet = () => {
    return (
       <div className="container mx-auto my-5">
          <div className="h-1/2 w-full flex flex-row gap-5">
-            <img src={`${user.photo}`} alt="" className="w-1/4 h-full rounded-lg" />
+            <div className=" w-1/4 flex flex-col gap-1">
+               {newPhoto ?
+                  (
+                     <img src={URL.createObjectURL(newPhoto)} alt="" className="w-full rounded-lg" />
+                  ) :
+                  (
+                     <img src={`${user.photo}`} alt="" className="w-full h-full rounded-lg" />
+                  )}
+               {isEditing && (<input type="file" onChange={handlePhotoChange} />)}
+            </div>
             <div className="w-1/3 flex flex-col">
                <div className="flex flex-row items-center">
                   {isEditing ? (
@@ -91,12 +121,12 @@ const MyCabinet = () => {
                   )}
                   {user.role != 'admin' && (
                      <div className="flex flex-row ml-auto gap-1">
-                        <button className={`p-4 rounded-xl hover:bg-pink-600 hover:text-white transition-all border-2 border-gray-300 ${isEditing && 'bg-pink-600 animate-pulse'}`} onClick={() => setIsEditing(prevState => !prevState)}>
+                        <div className={`p-4 rounded-xl hover:bg-pink-600 hover:text-white transition-all border-2 border-gray-300 ${isEditing && 'bg-pink-600 animate-pulse'}`} onClick={() => setIsEditing(prevState => !prevState)}>
                            <FiEdit2 />
-                        </button>
-                        <button className={`p-4 rounded-xl hover:bg-red-600 text-black transition-all border-2 border-gray-300 ${isDeleteOpen && 'bg-red-600 text-white animate-pulse'}`} onClick={() => setIsDeleteOpen(prevState => !prevState)}>
+                        </div>
+                        <div className={`p-4 rounded-xl hover:bg-red-600 text-black transition-all border-2 border-gray-300 ${isDeleteOpen && 'bg-red-600 text-white animate-pulse'}`} onClick={() => setIsDeleteOpen(prevState => !prevState)}>
                            <AiFillDelete />
-                        </button>
+                        </div>
                      </div>
                   )}
                </div>

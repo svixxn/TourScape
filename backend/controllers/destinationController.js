@@ -7,7 +7,6 @@ const uploadDestPhoto = publicId => (req, res, next) => {
    cloudinary.createMulti('photo', 'Destinations', publicId, 900, 700)(req, res, (err) => {
       if (err) return next(err);
       if (req.files && req.files.length>0) {
-         console.log(req.files)
          req.body.photo = req.files.map(el=>el.path);
       }
       next();
