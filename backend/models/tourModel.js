@@ -152,12 +152,6 @@ tourSchema.pre(/^find/, function (next) {
     next();
 })
 
-tourSchema.pre('save', function (next) {
-    this.startDates.forEach(startDate => {
-        startDate.availablePlaces = this.maxGroupSize;
-    });
-    next();
-});
 
 
 
