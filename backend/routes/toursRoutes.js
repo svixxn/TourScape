@@ -14,6 +14,7 @@ router.route('/tour-stats').get(protect, restrictTo('admin', 'lead-guide'),tourC
 router.route('/monthly-plan/:year').get(protect, restrictTo('admin', 'lead-guide', 'guide'), tourController.getMonthlyPlan);
 router.route('/tours-within/:distance/center/:latlng/unit/:unit').get(tourController.getToursWithin)
 router.route('/distances/:latlng/unit/:unit').get(tourController.getDistances);
+router.patch('/updateAllStartDates', protect, restrictTo('admin'), tourController.updateAllStartDates)
 router.route('/').get(tourController.getAllTours).post(protect, restrictTo('admin', 'lead-guide'), tourController.createTour);
 router.get('/:slug',tourController.getTourById)
 router.route('/:id').patch(protect, restrictTo('admin', 'lead-guide'), tourController.uploadTourPhoto, tourController.updateTourById).delete(protect, restrictTo('admin', 'lead-guide'), tourController.deleteTour);

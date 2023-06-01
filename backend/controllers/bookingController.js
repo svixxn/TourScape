@@ -72,7 +72,6 @@ const updateAvailablePlaces = catchAsync(async (date, numberOfPeople,client_refe
    tour.startDates.find(sd => sd.date.toISOString() === newDate).availablePlaces = updatedAvailablePlaces
    tour.markModified('startDates')
    await tour.save();
-
 })
 
 

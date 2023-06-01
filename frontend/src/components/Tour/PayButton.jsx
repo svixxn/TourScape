@@ -4,11 +4,12 @@ import Toast from "../Utils/Toast";
 
 
 /* eslint-disable react/prop-types */
-const PayButton = ({ item, date, numberOfPeople }) => {
+const PayButton = ({ item, date, numberOfPeople, isAvailable }) => {
    const authToken = Cookies.get('_auth');
 
 
    const handleCheckout = async () => {
+    if(!isAvailable) return;
     if(!authToken) {
       Toast({ type: "error", message: `You're not logged in.`, duration: 2000 });
       return;
@@ -40,7 +41,7 @@ const PayButton = ({ item, date, numberOfPeople }) => {
     
 
    return (
-      <button className='p-4 my-5 text-center bg-pink-600 text-white rounded-full hover:bg-pink-800 transition-all' onClick={handleCheckout}>Reserve Now</button>
+      <button className={`p-4 my-5 text-center text-white rounded-full transition-all ${isAvailable? 'bg-pink-600  hover:bg-pink-800':'cursor-not-allowed bg-pink-300'}`} onClick={handleCheckout}>Reserve Now</button>
    )
 }
 

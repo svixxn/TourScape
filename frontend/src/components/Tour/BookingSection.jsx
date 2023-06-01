@@ -14,20 +14,20 @@ const BookingSection = ({ tour }) => {
          year: 'numeric',
       };
       const parsedDate = new Date(date.date);
-      date.date =  parsedDate.toLocaleString('en-GB', options);
+      date.date = parsedDate.toLocaleString('en-GB', options);
    });
 
    const [isCalendarOpen, setIsCalendarOpen] = useState(false)
    const [calendar, setCalendar] = useState(tour?.startDates[0].date)
-   const [countOfPeople, setCountOfPeople] = useState(2)
+   const [countOfPeople, setCountOfPeople] = useState(1)
    const [maxPeople, setMaxPeople] = useState(tour?.startDates[0].availablePlaces)
 
    const decrementHandler = () => {
       countOfPeople > 1 && setCountOfPeople((prevState) => prevState - 1)
    }
 
-   const setNewDate = (date,index) => {
-      setCalendar(date.date); 
+   const setNewDate = (date, index) => {
+      setCalendar(date.date);
       setMaxPeople(tour.startDates[index].availablePlaces)
       setIsCalendarOpen(prevState => !prevState)
    }
@@ -46,7 +46,7 @@ const BookingSection = ({ tour }) => {
             </div>
             <ul className={`bg-white my-2 overflow-y-auto ${isCalendarOpen ? 'max-h-36' : 'max-h-0'} rounded-lg`}>
                {tour.startDates.map((date, index) => (
-                  <li key={index} className={`p-2 text-sm hover:bg-pink-600 hover:text-white cursor-pointer ${date?.date.toLowerCase() === calendar?.toLowerCase() && 'bg-pink-600 text-white'}`} onClick={()=> setNewDate(date,index)}>{date.date}</li>
+                  <li key={index} className={`p-2 text-sm hover:bg-pink-600 hover:text-white cursor-pointer ${date?.date.toLowerCase() === calendar?.toLowerCase() && 'bg-pink-600 text-white'}`} onClick={() => setNewDate(date, index)}>{date.date}</li>
                ))}
             </ul>
          </div>
@@ -60,7 +60,16 @@ const BookingSection = ({ tour }) => {
                </div>
             </div>
          </div>
-         {calendar && <h3 className='text-green-600 mt-4'>Option is available</h3>}
+         {(calendar && maxPeople > 0) ? (
+            <h3 className='text-green-600 mt-4'>
+               Option is available
+               <span className='text-sm text-gray-500'> ({maxPeople} tickets remaining for this date)</span>
+            </h3>) : (
+            <h3 className='text-red-600 mt-4'>
+               Option is not available
+            </h3>
+         )
+         }
 
          <div className='border-2 w-full h-48 my-5 p-4 border-black rounded-xl flex flex-col'>
             <h1 className='font-semibold'>{tour.name}</h1>
@@ -69,9 +78,9 @@ const BookingSection = ({ tour }) => {
             <h1 className='mt-auto font-bold text-2xl'>Total: ${countOfPeople * tour.price}</h1>
          </div>
 
-         <PayButton item={tour} date={calendar} numberOfPeople={countOfPeople}/>
+         <PayButton item={tour} date={calendar} numberOfPeople={countOfPeople} isAvailable={maxPeople > 0}/>
          <div className='flex flex-row gap-2 text-base'>
-            <RxCounterClockwiseClock size={30} className='text-pink-600'/>
+            <RxCounterClockwiseClock size={30} className='text-pink-600' />
             Not sure? You can cancel this reservation up to 24 hours in advance for a full refund
          </div>
       </div>

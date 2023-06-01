@@ -161,6 +161,24 @@ exports.getDistances = catchAsync(async (req, res, next) => {
     });
 });
 
+exports.updateAllStartDates = catchAsync(async (req,res,next) => {
+    const tours = await Tour.find({})
+
+    tours.forEach(async (tour) => {
+        tour.startDates.forEach(date => {
+            date.availablePlaces = tour.maxGroupSize;
+        })
+       await tour.save()
+    })
+
+
+
+    res.status(200).json({
+        status: 'success',
+        message: 'Start dates was successfully updated.'
+    });
+})
+
 const uploadTourPhoto = publicId => (req, res, next) => {
     cloudinary.createMulti('photo', 'Tours', publicId, 900, 700)(req, res, (err) => {
        if (err) return next(err);

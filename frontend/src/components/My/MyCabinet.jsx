@@ -37,7 +37,6 @@ const MyCabinet = () => {
             { name: newName, email: newEmail },
             config
          );
-         signOut()
          setLoadUser(true)
       } catch (err) {
          Toast({ type: "error", message: `Error occurred`, duration: 2000 });
