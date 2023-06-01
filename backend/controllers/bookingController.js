@@ -68,7 +68,7 @@ const updateAvailablePlaces = catchAsync(async (date, numberOfPeople,client_refe
    const tour = await Tour.findById(client_reference_id).lean()
    const newDate = new Date(date).toISOString()  
 
-   tour.startDates(date => {
+   tour.startDates.forEach(date => {
       console.log(date.date.toString().toLowerCase())
       console.log(date.date.toString().toLowerCase() === newDate.toString().toLowerCase())
    })
