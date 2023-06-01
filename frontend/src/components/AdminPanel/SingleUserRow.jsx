@@ -61,6 +61,7 @@ const SingleUserRow = ({ user, fetchUsers, changeModal, handleDeleteUser }) => {
                         <li className={`p-2 text-sm cursor-pointer ${newRole === 'user' && 'bg-pink-600 text-white'}`} onClick={() => { setNewRole("user") }}>user</li>
                         <li className={`p-2 text-sm cursor-pointer ${newRole === 'guide' && 'bg-pink-600 text-white'}`} onClick={() => { setNewRole("guide") }}>guide</li>
                         <li className={`p-2 text-sm cursor-pointer ${newRole === 'lead-guide' && 'bg-pink-600 text-white'}`} onClick={() => { setNewRole("lead-guide") }}>lead-guide</li>
+                        <li className={`p-2 text-sm cursor-pointer ${newRole === 'admin' && 'bg-pink-600 text-white'}`} onClick={() => { setNewRole("admin") }}>admin</li>
                      </ul>
                   </div>
                ) : (<span className={`text-white text-sm w-1/3 font-semibold p-4 rounded-full

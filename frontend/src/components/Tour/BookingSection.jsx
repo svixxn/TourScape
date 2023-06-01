@@ -7,26 +7,33 @@ import PayButton from './PayButton'
 import { TourState } from '../../context/TourProvider'
 
 const BookingSection = ({ tour }) => {
-   tour.startDates = tour.startDates.map(date => {
+   tour.startDates.forEach((date) => {
       const options = {
          day: 'numeric',
          month: 'long',
          year: 'numeric',
       };
-      const parsedDate = new Date(date);
-      return parsedDate.toLocaleString('en-GB', options);
+      const parsedDate = new Date(date.date);
+      date.date =  parsedDate.toLocaleString('en-GB', options);
    });
 
    const [isCalendarOpen, setIsCalendarOpen] = useState(false)
-   const [calendar, setCalendar] = useState(tour?.startDates[0])
+   const [calendar, setCalendar] = useState(tour?.startDates[0].date)
    const [countOfPeople, setCountOfPeople] = useState(2)
+   const [maxPeople, setMaxPeople] = useState(tour?.startDates[0].availablePlaces)
 
    const decrementHandler = () => {
       countOfPeople > 1 && setCountOfPeople((prevState) => prevState - 1)
    }
 
+   const setNewDate = (date,index) => {
+      setCalendar(date.date); 
+      setMaxPeople(tour.startDates[index].availablePlaces)
+      setIsCalendarOpen(prevState => !prevState)
+   }
+
    const incrementHandler = () => {
-      countOfPeople < tour.maxGroupSize - 2 && setCountOfPeople((prevState) => prevState + 1)
+      countOfPeople < maxPeople && setCountOfPeople((prevState) => prevState + 1)
    }
 
    return (
@@ -39,7 +46,7 @@ const BookingSection = ({ tour }) => {
             </div>
             <ul className={`bg-white my-2 overflow-y-auto ${isCalendarOpen ? 'max-h-36' : 'max-h-0'} rounded-lg`}>
                {tour.startDates.map((date, index) => (
-                  <li key={index} className={`p-2 text-sm hover:bg-pink-600 hover:text-white cursor-pointer ${date?.toLowerCase() === calendar?.toLowerCase() && 'bg-pink-600 text-white'}`} onClick={() => { setCalendar(date); setIsCalendarOpen(prevState => !prevState) }}>{date}</li>
+                  <li key={index} className={`p-2 text-sm hover:bg-pink-600 hover:text-white cursor-pointer ${date?.date.toLowerCase() === calendar?.toLowerCase() && 'bg-pink-600 text-white'}`} onClick={()=> setNewDate(date,index)}>{date.date}</li>
                ))}
             </ul>
          </div>
@@ -49,7 +56,7 @@ const BookingSection = ({ tour }) => {
                <div className='flex flex-row items-center justify-center gap-2'>
                   <button className={`w-16 h-12 text-2xl border-2 rounded-full hover:bg-gray-200 transition-all ${countOfPeople > 1 ? 'text-black cursor-pointer' : 'text-gray-200 cursor-not-allowed'}`} onClick={decrementHandler}>-</button>
                   <div className='p-2 text-center border-2 border-gray-300 rounded-2xl w-full text-black'>{countOfPeople}</div>
-                  <button className={`w-16 h-12 text-2xl border-2 rounded-full hover:bg-gray-200 transition-all ${countOfPeople < tour.maxGroupSize - 2 ? 'text-black cursor-pointer' : 'text-gray-200 cursor-not-allowed'}`} onClick={incrementHandler}>+</button>
+                  <button className={`w-16 h-12 text-2xl border-2 rounded-full hover:bg-gray-200 transition-all ${countOfPeople < maxPeople ? 'text-black cursor-pointer' : 'text-gray-200 cursor-not-allowed'}`} onClick={incrementHandler}>+</button>
                </div>
             </div>
          </div>

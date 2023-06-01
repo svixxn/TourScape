@@ -58,15 +58,22 @@ const tourSchema = new mongoose.Schema({
         trim: true,
         required: [true, "A tour must have a summary"]
     },
-
     description: {
         type: String,
         trim: true,
         required: [true, "A tour must have a description"]
     },
     photo: [String],
-    startDates: [Date],
-    endDates: [Date],
+    startDates: [
+        {
+            date: {
+                type: Date
+            },
+            availablePlaces: {
+                type: Number
+            }
+        }
+    ],
     secretTour: {
         type: Boolean,
         default: false
@@ -125,7 +132,6 @@ tourSchema.virtual('reviews', {
 });
 
 
-//Doc Middleware, runs before save and create command
 tourSchema.pre('save', function (next) {
     this.slug = slugify(this.name, { lower: true });
     next();
@@ -140,12 +146,18 @@ tourSchema.pre(/^find/, function (next) {
     next();
 });
 
-// query middleware
 tourSchema.pre(/^find/, function (next) {
     this.find({ secretTour: { $ne: true } })
     this.start = Date.now();
     next();
 })
+
+tourSchema.pre('save', function (next) {
+    this.startDates.forEach(startDate => {
+        startDate.availablePlaces = this.maxGroupSize;
+    });
+    next();
+});
 
 
 

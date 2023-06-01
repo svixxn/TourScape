@@ -64,86 +64,98 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
    });
 });
 
+const updateAvailablePlaces = catchAsync(async (date, numberOfPeople) => {
+   const tour = await Tour.findById(client_reference_id);
+   const availablePlaces = tour.startDates.find(sd => sd.date === new Date(date).toISOString()).availablePlaces;
+   const updatedAvailablePlaces = availablePlaces - numberOfPeople;
+   tour.startDates.find(sd => sd.date === date).availablePlaces = updatedAvailablePlaces;
+
+   await tour.save();
+
+})
+
 
 exports.checkoutWebhook = catchAsync(async (req, res, next) => {
    const sig = req.headers['stripe-signature'];
    console.log(sig)
    console.log(process.env.STRIPE_SECRET_WEBHOOK)
-   
- 
+
+
    try {
-     const event = stripe.webhooks.constructEvent(
-       req.body,
-       sig,
-       process.env.STRIPE_SECRET_WEBHOOK
-     );
+      const event = stripe.webhooks.constructEvent(
+         req.body,
+         sig,
+         process.env.STRIPE_SECRET_WEBHOOK
+      );
 
-     console.log(event)
-     
-     if (event.type === 'checkout.session.completed') {
-      console.log("COMPLETED!")
-       const session = event.data.object;
+      console.log(event)
 
- 
-       const { client_reference_id, metadata, customer_email, amount_total } = session;
- 
-       const { startDate, numberOfPeople } = metadata; 
+      if (event.type === 'checkout.session.completed') {
+         console.log("COMPLETED!")
+         const session = event.data.object;
 
-       const user = await User.findOne({email: customer_email})
-       const newStartDate = new Date(startDate).toISOString();
 
-       await Booking.create({
-         tour: client_reference_id,
-         user: user._id, 
-         price: amount_total / 100, 
-         onDate:newStartDate,
-         numberOfPeople
-       });
-     }
+         const { client_reference_id, metadata, customer_email, amount_total } = session;
+
+         const { startDate, numberOfPeople } = metadata;
+         
+         updateAvailablePlaces();
+
+         const user = await User.findOne({ email: customer_email })
+         const newStartDate = new Date(startDate).toISOString();
+
+         await Booking.create({
+            tour: client_reference_id,
+            user: user._id,
+            price: amount_total / 100,
+            onDate: newStartDate,
+            numberOfPeople
+         });
+      }
    } catch (err) {
-     return next(new AppError(`Webhook error: ${err}`, 400)); 
+      return next(new AppError(`Webhook error: ${err}`, 400));
    }
- 
+
    res.status(200).json({ received: true });
- });
- 
-exports.getMyBookings = catchAsync(async (req,res,next) => {
-   const myBookings = await Booking.find({user: req.user._id}).populate({path: "tour hotel restaurant", select: "name duration photo"})
+});
+
+exports.getMyBookings = catchAsync(async (req, res, next) => {
+   const myBookings = await Booking.find({ user: req.user._id }).populate({ path: "tour hotel restaurant", select: "name duration photo" })
 
    res.status(200).json({
       status: 'success',
       data: {
-          data: myBookings
+         data: myBookings
       }
-  });
+   });
 })
 
-exports.getBookingStats = catchAsync(async (req, res,next) => {
+exports.getBookingStats = catchAsync(async (req, res, next) => {
    const stats = await Booking.aggregate([
-       {
-           $match: {}
-       },
-       {
-           $group: {
-               _id: {$toUpper: '$tour.name'},
-               num: {$sum: 1},
-               avgPrice: {$avg: '$price'},
-               minPrice: {$min: '$price'},
-               maxPrice: {$max: '$price'},
-               averagePeople: {$avg :'$numberOfPeople'},
-               minPeople: {$min :'$numberOfPeople'},
-               maxPeople: {$max :'$numberOfPeople'}
-           }
-       },
-       {
-           $sort: {
-               avgPrice: 1
-           }
-       }
+      {
+         $match: {}
+      },
+      {
+         $group: {
+            _id: { $toUpper: '$tour.name' },
+            num: { $sum: 1 },
+            avgPrice: { $avg: '$price' },
+            minPrice: { $min: '$price' },
+            maxPrice: { $max: '$price' },
+            averagePeople: { $avg: '$numberOfPeople' },
+            minPeople: { $min: '$numberOfPeople' },
+            maxPeople: { $max: '$numberOfPeople' }
+         }
+      },
+      {
+         $sort: {
+            avgPrice: 1
+         }
+      }
    ]);
    res.status(200).json({
-       status: 'success',
-       data: {stats}
+      status: 'success',
+      data: { stats }
    })
 })
 
@@ -154,7 +166,7 @@ exports.getBookingStats = catchAsync(async (req, res,next) => {
 
 
 
-exports.getAllBookings = factory.getAll(Booking, { path: 'tour', select: 'name photo duration'})
+exports.getAllBookings = factory.getAll(Booking, { path: 'tour', select: 'name photo duration' })
 
 exports.getBooking = factory.getOne(Booking)
 
