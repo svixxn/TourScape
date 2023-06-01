@@ -64,7 +64,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
    });
 });
 
-const updateAvailablePlaces = catchAsync(async (date, numberOfPeople) => {
+const updateAvailablePlaces = catchAsync(async (date, numberOfPeople,client_reference_id) => {
    const tour = await Tour.findById(client_reference_id);
    console.log(tour)
    const availablePlaces = tour.startDates.find(sd => sd.date === new Date(date).toISOString()).availablePlaces;
@@ -100,7 +100,7 @@ exports.checkoutWebhook = catchAsync(async (req, res, next) => {
 
          const { startDate, numberOfPeople } = metadata;
          
-         updateAvailablePlaces(startDate, client_reference_id);
+         updateAvailablePlaces(startDate, numberOfPeople, client_reference_id);
 
          const user = await User.findOne({ email: customer_email })
          const newStartDate = new Date(startDate).toISOString();
