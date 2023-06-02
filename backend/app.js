@@ -20,6 +20,7 @@ const destinationRoutes = require("../backend/routes/destinationRoutes")
 const restaurantRoutes = require("../backend/routes/restaurantRoutes")
 const reviewRoutes = require("../backend/routes/reviewRoutes")
 const bookingRoutes = require("../backend/routes/bookingRoutes")
+const backupRoutes = require("../backend/routes/backupRoutes")
 
 
 const app = express();
@@ -122,6 +123,7 @@ app.use(hpp({
 }));
 
 //Routes
+app.use('/api/backup', backupRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/tours', tourRoutes)
 app.use('/api/destinations', destinationRoutes)

@@ -13,11 +13,13 @@ const DB = process.env.MONGO_URL;
 
 const app = require('./app')
 
+
 mongoose.connect(DB, {
     useNewUrlParser: true,
     useUnifiedTopology:true
 }).then(() => console.log("DB connection established"));
 
+app.locals.mongoDB = mongoose.connection;
 
 const port = process.env.PORT || 5000;
 const server = app.listen(port, () => {
