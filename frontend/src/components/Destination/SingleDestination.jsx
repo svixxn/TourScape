@@ -39,7 +39,7 @@ const SingleDestination = () => {
         <img src={`${destination.photo[1]}`} className='w-[100%] md:w-[50%] rounded-0 md:rounded-xl' alt="" />
       </div>
       <MapBox coords={destination.location} />
-      <div className='flex flex-col md:flex-row items-center justify-between px-14 text-4xl'>
+      {/* <div className='flex flex-col md:flex-row items-center justify-between px-14 text-4xl'>
         <div className='flex flex-col text-center text-primary font-bold'>
           <div className='underline'>Tours Available</div>
           <div className='text-center text-2xl'>{destination.tours.length}</div>
@@ -52,7 +52,7 @@ const SingleDestination = () => {
           <div className='underline'>Restaurants Available</div>
           <div className='text-center text-2xl'>{destination.restaurants.length}</div>
         </div>
-      </div>
+      </div> */}
       <div className='m-3'>
         <button className='bg-none hover:bg-slate-200 transition duration-500 w-full my-4 text-center' onClick={() => setIsAccOpen(prevState => !prevState)}>
           <LineWithTextArrow content={"Description"} isOpen={isAccOpen} />
