@@ -31,7 +31,7 @@ const tourSchema = new mongoose.Schema({
     },
     ratingsAverage: {
         type: Number,
-        default: 4.5,
+        default: 4,
         min: [1, "The rating must be above 1.0"],
         max: [5, "The rating must be below 5.0"],
         set: val => Math.round(val * 10) / 10
@@ -150,6 +150,12 @@ tourSchema.pre(/^find/, function (next) {
     this.find({ secretTour: { $ne: true } })
     this.start = Date.now();
     next();
+})
+tourSchema.pre('save', function(next){
+    this.startDates.forEach(date => {
+        date.availablePlaces = this.maxGroupSize
+    })
+    next()
 })
 
 

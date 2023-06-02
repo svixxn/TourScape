@@ -99,7 +99,7 @@ const Tours = () => {
                   <BsChevronDown className={`ml-2 ${isDestinationOpen && 'rotate-180'}`} />
                </div>
                <ul className={`bg-white mt-2 overflow-y-auto transition-all ${isDestinationOpen ? 'max-h-40' : 'max-h-0'}`}>
-                  <li className={`p-2 text-sm hover:bg-pink-600 hover:text-white cursor-pointer `} onClick={() => { setDestination(null); setIsDestinationOpen(prevState => !prevState) }}>Any Country</li>
+                  <li className={`p-2 text-sm hover:bg-pink-600 hover:text-white cursor-pointer `} onClick={() => { setDestination(null); setIsDestinationOpen(prevState => !prevState) }}>Any City</li>
                   {destinations?.map((country, index) => (
                      <li key={index} className={`p-2 text-sm hover:bg-pink-600 hover:text-white cursor-pointer ${country?.name.toLowerCase() === destination?.toLowerCase() && 'bg-pink-600 text-white'}`} onClick={() => { setDestination(country.name); setIsDestinationOpen(prevState => !prevState) }}>{country.name}</li>
                   ))}
@@ -154,7 +154,7 @@ const Tours = () => {
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5'>
                {tours.length > 0 ? tours.map((tour, index) => (
                   <SingleTourCard key={index} tour={tour} />
-               )) : (<div>Tours not found.</div>)}
+               )) : (<div className='text-4xl text-primary mb-72'>Tours not found.</div>)}
             </div>
          )}
 

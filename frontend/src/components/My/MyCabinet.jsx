@@ -30,7 +30,11 @@ const MyCabinet = () => {
    },[user])
 
    const handleSubmitEdit = async () => {
-      if (newName === user.name && newEmail === user.email && !newPhoto) return;
+      if (newName === user.name && newEmail === user.email && !newPhoto){
+         setIsEditing(prevState => !prevState)
+         setIsEditing
+         return;
+      } 
       try {
          setIsEditing(prevState => !prevState)
          const formData = new FormData();
@@ -40,7 +44,6 @@ const MyCabinet = () => {
          if (newPhoto) {
             formData.append("photo", newPhoto);
          }
-         setNewPhoto(null)
          const { data } = await axios.patch(
             `/api/users/updateme`,
             formData

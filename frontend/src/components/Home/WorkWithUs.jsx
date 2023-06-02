@@ -5,7 +5,7 @@ const WorkWithUs = () => {
    return (
       <div className='container mx-auto text-center'>
          <LineWithText content={"Work with us"}/>
-         <div className='h-80 flex flex-row items-center'>
+         <div className='my-10 flex flex-row items-center'>
             <div className='flex flex-col justify-center items-center'>
                <FaMoneyBillWave className="text-5xl" />
                <p className="text-3xl mb-3">Best prices on the market</p>

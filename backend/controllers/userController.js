@@ -22,19 +22,15 @@ exports.getMe = (req, res, next) => {
 };
 
 exports.updateMe = catchAsync(async (req, res, next) => {
-    // 1) Create error if user POSTs password data
     if (req.body.password || req.body.passwordConfirm) {
         return next(
             new AppError('This route is not for password updates. Please use /updateMyPassword.', 400)
         );
     }
 
-    // 2) Filtered out unwanted fields names that are not allowed to be updated
     const filteredBody = filterObj(req.body, 'name', 'email');
     if (req.file) filteredBody.photo = req.file.path;
 
-
-    // 3) Update user document
     const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
         new: true,
         runValidators: true
@@ -48,7 +44,6 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     });
 });
 
-
 exports.deleteMe = catchAsync(async (req, res, next) => {
     await User.findByIdAndUpdate(req.user.id, { active: false });
     res.status(204).json({
@@ -57,18 +52,11 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
     });
 });
 
-exports.createUser = (req, res) => {
-    res.status(500).json({
-        status: 'error',
-        message: 'This route is not defined. Please use sign up instead.'
-    })
-}
-
-const uploadUserPhoto = publicId => (req, res, next) => {
+exports.uploadUserPhoto = (req, res, next) => {
     const upload = cloudinary.createSingle(
         'photo',
         'Users',
-        publicId,
+        req.user.id,
         500,
         500
     );
@@ -81,20 +69,10 @@ const uploadUserPhoto = publicId => (req, res, next) => {
     });
 };
 
-const deleteUserPhoto = publicId => (req, res, next) => {
-    cloudinary.deleteSingle('Users', publicId);
+exports.deleteUserPhoto =  (req, res, next) => {
+    cloudinary.deleteSingle('Users', req.user.id);
     next();
 };
-
-exports.uploadUserPhoto = (req, res, next) => {
-    const url = req.originalUrl.split("users/")[1];
-    url.startsWith("update")? uploadUserPhoto(req.user.id)(req, res, next): uploadUserPhoto(req.params.id)(req, res, next);
-}
-
-exports.deleteUserPhoto = (req, res, next) => {
-    const url = req.originalUrl.split("users/")[1];
-    url.startsWith("update")? deleteUserPhoto(req.user.id)(req, res, next): deleteUserPhoto(req.params.id)(req, res, next);
-}
 
 
 exports.getAllUsers = factory.getAll(User)
