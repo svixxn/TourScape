@@ -49,7 +49,7 @@ function Login() {
   return (
 
     <>
-      <div className="container mx-auto bg-white border-4 rounded-xl my-24 p-8 w-1/4 flex flex-col items-center justify-center">
+      <div className="container mx-auto bg-white border-4 rounded-xl my-24 p-8 w-full md:w-1/2 xl:w-1/4 flex flex-col items-center justify-center">
         <h1 className="font-bold text-3xl mb-8">Login</h1>
         <form className="form font-bold w-full">
           <div className="relative">
