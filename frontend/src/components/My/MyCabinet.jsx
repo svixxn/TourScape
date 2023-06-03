@@ -26,12 +26,12 @@ const MyCabinet = () => {
    useEffect(()=> {
       setNewName(user?.name)
       setNewEmail(user?.email)
+      setNewPhoto(null)
    },[user])
 
    const handleSubmitEdit = async () => {
       if (newName === user.name && newEmail === user.email && !newPhoto){
          setIsEditing(prevState => !prevState)
-         setIsEditing
          return;
       } 
       try {
@@ -39,7 +39,6 @@ const MyCabinet = () => {
          const formData = new FormData();
          formData.append("name", newName);
          formData.append("email", newEmail);
-         console.log(newName, newEmail, newPhoto)
          if (newPhoto) {
             formData.append("photo", newPhoto);
          }
