@@ -26,7 +26,7 @@ const MyCabinet = () => {
    useEffect(()=> {
       setNewName(user?.name)
       setNewEmail(user?.email)
-      setNewPhoto(user?.photo)
+      setNewPhoto(null)
    },[user])
 
    const handleSubmitEdit = async () => {
@@ -42,11 +42,13 @@ const MyCabinet = () => {
          if (newPhoto) {
             formData.append("photo", newPhoto);
          }
+         setNewPhoto(null)
          const config = {
             headers: {
-              "Content-type": "application/json",
+               "Content-type": "application/json",
+               Authorization: `Bearer ${authToken}`
             },
-          };
+         };
          const { data } = await axios.patch(
             `/api/users/updateme`,
             formData,
