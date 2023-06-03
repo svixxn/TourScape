@@ -39,10 +39,10 @@ const MyCabinet = () => {
          const formData = new FormData();
          formData.append("name", newName);
          formData.append("email", newEmail);
-         if (newPhoto) {
+       
             console.log("new photo is here")
             formData.append("photo", newPhoto);
-         }
+         
          console.log(formData)
          const { data } = await axios.patch(
             `/api/users/updateme`,
@@ -87,6 +87,7 @@ const MyCabinet = () => {
 
    const handlePhotoChange = (event) => {
       const file = event.target.files[0];
+      console.log(file)
       setNewPhoto(file);
    };
 
