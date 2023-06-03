@@ -43,17 +43,12 @@ const MyCabinet = () => {
             console.log("new photo is here")
             formData.append("photo", newPhoto);
          }
-         const config = {
-            headers: {
-              "Content-type": "multipart/form-data",
-              Authorization: `Bearer ${authToken}`
-            },
-          };          
+         console.log(formData)
          const { data } = await axios.patch(
             `/api/users/updateme`,
-            formData,
-            config
+            formData
          );
+         console.log(data.data.user)
          setUser(data.data.user)
          if (signIn({
             token: authToken,
