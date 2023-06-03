@@ -26,7 +26,6 @@ const MyCabinet = () => {
    useEffect(()=> {
       setNewName(user?.name)
       setNewEmail(user?.email)
-      setNewPhoto(null)
    },[user])
 
    const handleSubmitEdit = async () => {
