@@ -44,9 +44,15 @@ const MyCabinet = () => {
          if (newPhoto) {
             formData.append("photo", newPhoto);
          }
+         const config = {
+            headers: {
+              "Content-type": "application/json",
+            },
+          };
          const { data } = await axios.patch(
             `/api/users/updateme`,
-            formData
+            formData,
+            config
          );
          setUser(data.data.user)
          if (signIn({
