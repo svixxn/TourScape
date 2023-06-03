@@ -53,6 +53,7 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
 });
 
 exports.uploadUserPhoto = (req, res, next) => {
+    console.log(req.user.id, req.file.path)
     const upload = cloudinary.createSingle(
         'photo',
         'Users',
