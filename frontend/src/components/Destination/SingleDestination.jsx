@@ -4,8 +4,8 @@ import axios from 'axios';
 import LineWithTextArrow from '../Utils/LineWithTextArrow';
 import MapBox from './MapBox';
 import ToursSection from './ToursSection';
-import HotelsSection from './HotelsSection';
-import RestaurantsSection from './RestaurantsSection';
+// import HotelsSection from './HotelsSection';
+// import RestaurantsSection from './RestaurantsSection';
 import Toast from '../Utils/Toast';
 
 

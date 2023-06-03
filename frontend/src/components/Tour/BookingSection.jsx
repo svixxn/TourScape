@@ -4,6 +4,7 @@ import { BsChevronDown } from 'react-icons/bs'
 import { AiOutlineCalendar, AiOutlineUsergroupAdd } from 'react-icons/ai'
 import { RxCounterClockwiseClock } from 'react-icons/rx'
 import PayButton from './PayButton'
+import { TourState } from '../../context/TourProvider'
 
 const BookingSection = ({ tour }) => {
    tour.startDates.forEach((date) => {
@@ -20,6 +21,7 @@ const BookingSection = ({ tour }) => {
    const [calendar, setCalendar] = useState(tour?.startDates[0].date)
    const [countOfPeople, setCountOfPeople] = useState(1)
    const [maxPeople, setMaxPeople] = useState(tour?.startDates[0].availablePlaces)
+   const {user} = TourState()
 
    const decrementHandler = () => {
       countOfPeople > 1 && setCountOfPeople((prevState) => prevState - 1)
@@ -77,7 +79,7 @@ const BookingSection = ({ tour }) => {
             <h1 className='mt-auto font-bold text-2xl'>Total: ${countOfPeople * tour.price}</h1>
          </div>
 
-         <PayButton item={tour} date={calendar} numberOfPeople={countOfPeople} isAvailable={maxPeople > 0}/>
+         <PayButton item={tour} date={calendar} numberOfPeople={countOfPeople} isAvailable={maxPeople > 0 && user.role == 'user'}/>
          <div className='flex flex-row gap-2 text-base'>
             <RxCounterClockwiseClock size={30} className='text-pink-600' />
             Not sure? You can cancel this reservation up to 24 hours in advance for a full refund

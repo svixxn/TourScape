@@ -21,6 +21,8 @@ const SingleUserRow = ({ user, fetchUsers, changeModal, handleDeleteUser }) => {
          await axios.patch(`/api/users/${user._id}`, { role: newRole })
          Toast({ type: "success", message: `Role changed.`, duration: 1000 });
          fetchUsers();
+         setIsEditing(false)
+         setNewRole(user.role)
          setIsLoading(false)
       } catch (err) {
          Toast({ type: "error", message: `${err.response.data.message}`, duration: 1000 });
