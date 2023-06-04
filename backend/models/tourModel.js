@@ -151,12 +151,16 @@ tourSchema.pre(/^find/, function (next) {
     this.start = Date.now();
     next();
 })
-tourSchema.pre('save', function(next){
-    this.startDates.forEach(date => {
-        date.availablePlaces = this.maxGroupSize
-    })
-    next()
-})
+
+tourSchema.pre('save', function(next) {
+    if (this.isNew) {
+        this.startDates.forEach(date => {
+            date.availablePlaces = this.maxGroupSize;
+        });
+    }
+    next();
+});
+
 
 
 
