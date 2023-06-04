@@ -63,7 +63,6 @@ exports.uploadUserPhoto = (req, res, next) => {
 
     upload(req, res, err => {
         if (err) return next(err);
-        console.log(req.file)
 
         if (req.file) req.body.photo = req.file.path;
         next();

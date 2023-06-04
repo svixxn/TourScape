@@ -79,7 +79,7 @@ const BookingSection = ({ tour }) => {
             <h1 className='mt-auto font-bold text-2xl'>Total: ${countOfPeople * tour.price}</h1>
          </div>
 
-         <PayButton item={tour} date={calendar} numberOfPeople={countOfPeople} isAvailable={maxPeople > 0 && user.role == 'user'}/>
+         <PayButton item={tour} date={calendar} numberOfPeople={countOfPeople} isAvailable={maxPeople > 0 && user?.role == 'user'}/>
          <div className='flex flex-row gap-2 text-base'>
             <RxCounterClockwiseClock size={30} className='text-pink-600' />
             Not sure? You can cancel this reservation up to 24 hours in advance for a full refund
