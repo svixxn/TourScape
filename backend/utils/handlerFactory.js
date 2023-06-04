@@ -18,7 +18,7 @@ exports.deleteOne = Model => catchAsync(async (req, res, next) => {
 })
 
 
-exports.deleteAll = Model => catchAsync(async (req,res,next) => {
+exports.deleteAll = Model => catchAsync(async (req, res, next) => {
     await Model.deleteMany({})
     res.status(204).json({
         status: 'success',
@@ -44,7 +44,7 @@ exports.updateOne = Model => catchAsync(async (req, res, next) => {
 
 exports.createOne = Model =>
     catchAsync(async (req, res, next) => {
-        
+
         const doc = await Model.create(req.body);
 
         res.status(201).json({
