@@ -8,13 +8,13 @@ import { TourState } from '../../context/TourProvider';
 const HomeCarousel = () => {
    const slides = [
       {
-         url: 'https://res.cloudinary.com/tourscape/image/upload/v1683554251/TourScape/Static/1_mq2wge_tagrzm.jpg',
+         url: 'https://res.cloudinary.com/myenv/image/upload/v1683554251/TourScape/Static/1_mq2wge_tagrzm.jpg',
       },
       {
-         url: 'https://res.cloudinary.com/tourscape/image/upload/v1683554250/TourScape/Static/2_ai384x_l07sma.jpg'
+         url: 'https://res.cloudinary.com/myenv/image/upload/v1683554250/TourScape/Static/2_ai384x_l07sma.jpg'
       },
       {
-         url: 'https://res.cloudinary.com/tourscape/image/upload/v1683554251/TourScape/Static/3_agwr6l_mlgmba.jpg'
+         url: 'https://res.cloudinary.com/myenv/image/upload/v1683554251/TourScape/Static/3_agwr6l_mlgmba.jpg'
       }
    ];
 
