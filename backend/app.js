@@ -104,13 +104,13 @@ app.use(express.json({ limit: '100mb' }));
 app.use(express.urlencoded({ extended: true, limit: '100mb' }));
 app.use(cookieParser());
 
-// Data sanitization against NoSQL query injection
+
 app.use(sanitize());
 
-// Data sanitization against XSS
+
 app.use(xss());
 
-// Prevent parameters pollution
+
 app.use(hpp({
     whitelist: [
         'duration',
